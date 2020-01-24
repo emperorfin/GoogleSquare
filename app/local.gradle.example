@@ -1,0 +1,6 @@
+android {
+    defaultConfig {
+        buildConfigField "String", "CLIENT_ID", "\"<YOUR_CLIENT_ID>\""
+        buildConfigField "String", "CLIENT_SECRET", "\"<YOUR_CLIENT_SECRET>\""
+    }
+}
