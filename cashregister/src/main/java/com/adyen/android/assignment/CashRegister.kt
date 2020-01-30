@@ -7,17 +7,19 @@ package com.adyen.android.assignment
  */
 class CashRegister(private val change: Change) {
     /**
-     * Performs a transaction for an item with a certain price and a given amount.
+     * Performs a transaction for a product/products with a certain price and a given amount.
      *
-     * @param price The price of the product.
+     * @param price The price of the product(s).
      * @param amountPaid The amount paid by the shopper.
      *
-     * @return The minimal amount of change.
+     * @return The change for the transaction.
      *
-     * @throws IllegalArgumentException If amountGiven < price.
+     * @throws TransactionException If the transaction cannot be performed.
      */
     fun performTransaction(price: Long, amountPaid: Long): Change {
         // TODO: Implement logic.
         return Change.none()
     }
+
+    class TransactionException(message: String, cause: Throwable? = null) : Exception(message, cause)
 }

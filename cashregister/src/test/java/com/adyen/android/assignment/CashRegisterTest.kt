@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class CashRegisterTest {
-    @Test(expected = IllegalArgumentException::class)
+    @Test(expected = CashRegister.TransactionException::class)
     fun testInvalidTransaction() {
         val cashRegister = CashRegister(Change.max())
         val price: Long = 6_99
