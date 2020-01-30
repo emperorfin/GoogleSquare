@@ -5,14 +5,30 @@ import java.util.TreeMap
 class Change {
     private val map by lazy {
         TreeMap<MonetaryElement, Int>(Comparator { lhs, rhs ->
-            rhs.minorValue.compareTo(lhs.minorValue)
+            lhs.minorValue.compareTo(rhs.minorValue)
         })
     }
 
-    val total: Long
-        get() = map.entries.sumBy { it.key.minorValue * it.value }.toLong()
+    var total: Long = 0
+        private set
 
-    fun put(element: MonetaryElement, count: Int): Change {
+    fun getElements(): Set<MonetaryElement> {
+        return map.keys
+    }
+
+    fun getCount(element: MonetaryElement): Int {
+        return map[element] ?: 0
+    }
+
+    fun add(element: MonetaryElement, count: Int): Change {
+        return modify(element, count)
+    }
+
+    fun remove(element: MonetaryElement, count: Int): Change {
+        return modify(element, -count)
+    }
+
+    private fun modify(element: MonetaryElement, count: Int): Change {
         val newCount = (map[element] ?: 0) + count
         if (newCount < 0) {
             throw IllegalArgumentException("Resulting count is less than zero.")
@@ -22,6 +38,7 @@ class Change {
         } else {
             map[element] = newCount
         }
+        total += element.minorValue * count
         return this
     }
 
@@ -42,8 +59,8 @@ class Change {
     companion object {
         fun max(): Change {
             val change = Change()
-            Bill.values().forEach { change.put(it, Int.MAX_VALUE) }
-            Coin.values().forEach { change.put(it, Int.MAX_VALUE) }
+            Bill.values().forEach { change.add(it, Int.MAX_VALUE) }
+            Coin.values().forEach { change.add(it, Int.MAX_VALUE) }
             return change
         }
 

@@ -9,7 +9,7 @@ class PlacesUnitTest {
     @Test
     fun testResponseCode() {
         val query = VenueRecommendationsQueryBuilder()
-            .setLatitudeLongitude(40.74224, -73.99386)
+            .setLatitudeLongitude(52.376510, 4.905890)
             .build()
         val response = PlacesService.instance
             .getVenueRecommendations(query)
