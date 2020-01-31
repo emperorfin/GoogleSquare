@@ -1,7 +1,7 @@
 apply plugin: "kotlin"
 
 dependencies {
-    testImplementation "junit:junit:4.12"
+    testImplementation "junit:junit:4.13"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

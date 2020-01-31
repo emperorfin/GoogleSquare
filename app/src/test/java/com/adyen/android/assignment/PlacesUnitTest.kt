@@ -3,6 +3,8 @@ package com.adyen.android.assignment
 import com.adyen.android.assignment.api.PlacesService
 import com.adyen.android.assignment.api.VenueRecommendationsQueryBuilder
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
 import org.junit.Test
 
 class PlacesUnitTest {
@@ -14,7 +16,12 @@ class PlacesUnitTest {
         val response = PlacesService.instance
             .getVenueRecommendations(query)
             .execute()
-            .body()!!
-        assertEquals("Response code", 200, response.meta.code)
+
+        val errorBody = response.errorBody()
+        assertNull("Received an error: ${errorBody?.string()}", errorBody)
+
+        val responseWrapper = response.body()
+        assertNotNull("Response is null.", responseWrapper)
+        assertEquals("Response code", 200, responseWrapper!!.meta.code)
     }
 }

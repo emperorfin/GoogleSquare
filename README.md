@@ -12,5 +12,3 @@ Your second task is to implement a small app using the Foursquare Places API. Se
 
 You can modify any piece of code in this repository.
 General rule of thumb: quality over quantity.
-
-Alternatively, you may also do whatever you want that will impress us instead!
