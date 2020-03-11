@@ -1,4 +1,4 @@
-package com.adyen.android.assignment
+package com.adyen.android.assignment.money
 
 import java.util.TreeMap
 
@@ -64,6 +64,7 @@ class Change {
             return change
         }
 
-        fun none(): Change = Change()
+        fun none(): Change =
+            Change()
     }
 }

@@ -1,5 +1,8 @@
 package com.adyen.android.assignment
 
+import com.adyen.android.assignment.money.Bill
+import com.adyen.android.assignment.money.Change
+import com.adyen.android.assignment.money.Coin
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
@@ -37,14 +40,14 @@ class ChangeTest {
     fun testCountsDiffer() {
         val expected = Change()
             .add(Coin.TWO_EURO, 4)
-            .add(Bill.ONEHUNDRED_EURO, 1)
+            .add(Bill.ONE_HUNDRED_EURO, 1)
             .add(Coin.FIFTY_CENT, 3)
             .add(Coin.TWENTY_CENT, 2)
         val actual = Change()
             .add(Coin.TWO_EURO, 3)
             .add(Coin.TWENTY_CENT, 1)
             .add(Coin.FIFTY_CENT, 2)
-            .add(Bill.ONEHUNDRED_EURO, 1)
+            .add(Bill.ONE_HUNDRED_EURO, 1)
         assertNotEquals(expected, actual)
     }
 }

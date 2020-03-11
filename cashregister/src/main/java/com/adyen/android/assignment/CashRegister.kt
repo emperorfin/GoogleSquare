@@ -1,5 +1,7 @@
 package com.adyen.android.assignment
 
+import com.adyen.android.assignment.money.Change
+
 /**
  * The CashRegister class holds the logic for performing transactions.
  *

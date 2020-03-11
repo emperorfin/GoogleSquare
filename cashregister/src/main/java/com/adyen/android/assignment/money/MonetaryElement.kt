@@ -1,4 +1,4 @@
-package com.adyen.android.assignment
+package com.adyen.android.assignment.money
 
 interface MonetaryElement {
     val minorValue: Int
