@@ -22,6 +22,6 @@ class PlacesUnitTest {
 
         val responseWrapper = response.body()
         assertNotNull("Response is null.", responseWrapper)
-        assertEquals("Response code", 200, responseWrapper!!.meta.code)
+        assertEquals("Response code", 200, response.code())
     }
 }

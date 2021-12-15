@@ -1,6 +1,5 @@
 android {
     defaultConfig {
-        buildConfigField "String", "CLIENT_ID", "\"<YOUR_CLIENT_ID>\""
-        buildConfigField "String", "CLIENT_SECRET", "\"<YOUR_CLIENT_SECRET>\""
+        buildConfigField "String", "API_KEY", "\"<YOU_API_KEY_GOES_HERE>\""
     }
 }
