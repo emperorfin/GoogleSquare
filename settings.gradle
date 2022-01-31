@@ -1,1 +1,1 @@
-include ':app', ':cashregister'
+include ':app'
