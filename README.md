@@ -1,14 +1,18 @@
 # Adyen Android Assignment
 
 This repository contains the coding challenge for candidates applying for an Android role at Adyen.
-It consists of two unrelated parts:
 
-## 1. Cash Register
-Your first task is to implement a cash register. See the `cashregister` module.
+Your task is to implement a small app using the Foursquare Places API that shows a list of venues around the user’s location.
+Decide yourself which venue details should be relevant to the user. You have full freedom on how to present data on screen.
+We've already added some code to make it a bit easier for you, but you are free to change any part of it.
+We are going to check your implementation for understanding Android specifics (like handling configuration changes), UX choices, and overall architecture.
+You are free to add any feature or code you want, but we also value quality over quantity, so whatever you decide to do, try to show us your best.
 
-## 2. App
-Your second task is to implement a small app using the Foursquare Places API. See the `app` module.
+## Setup
+Add your Foursquare client ID and secret to `local.gradle`. See `local.gradle.example` for details.
+Tip: You can verify your credentials with `src/test/java/com/adyen/android/assignment/PlacesUnitTest.kt`
 
-Please look at the README.md in each module for further information.
-You can modify any piece of code in this repository.
-General rule of thumb: quality over quantity.
+Minimal requirements:
+- Implement permission handling
+- Show a list of venues based on the current location
+- Apply best practices to handle configuration changes
