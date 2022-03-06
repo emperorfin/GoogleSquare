@@ -6,4 +6,13 @@
     <string name="message_coming_soon_add_custom_location">Adding custom location feature coming soon.</string>
     <string name="image_button_list">List</string>
     <string name="image_button_map">Map</string>
+    <string name="error_location_permission_denied">Location permission denied, enable?</string>
+    <string name="enable">Enable</string>
+    <string name="close">Close</string>
+    <string name="launch">Launch</string>
+    <string name="error_closing_no_location_permission">This application requires the use of location
+        services. Without this permission the application will not function properly and will close.</string>
+    <!--    <string name="message_location_not_saved">Oops! This should never happen but it does. This is because no last known location was saved. But you can launch a map with your current location to save a last known location and then you can open this app again.</string>-->
+    <string name="message_location_not_saved">Oops! This should never happen. To solve this, launch
+        a map to save last known location. Then reopen this app.</string>
 </resources>
