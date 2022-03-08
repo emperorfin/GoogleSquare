@@ -1,6 +1,6 @@
-package com.adyen.android.assignment.api.model
+package com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit.models.venue
 
-data class Result(
+data class VenueDataTransferObject(
     val categories: List<Category>,
     val distance: Int,
     val geocode: GeoCode,

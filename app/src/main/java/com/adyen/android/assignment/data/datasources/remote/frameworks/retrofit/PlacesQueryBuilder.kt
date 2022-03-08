@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.api
+package com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit
 
 import java.text.SimpleDateFormat
 import java.util.Date

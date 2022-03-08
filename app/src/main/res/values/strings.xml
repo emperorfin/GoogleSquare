@@ -15,4 +15,8 @@
     <!--    <string name="message_location_not_saved">Oops! This should never happen but it does. This is because no last known location was saved. But you can launch a map with your current location to save a last known location and then you can open this app again.</string>-->
     <string name="message_location_not_saved">Oops! This should never happen. To solve this, launch
         a map to save last known location. Then reopen this app.</string>
+    <string name="search_glyph_text">No location results to display.</string>
+    <string name="loading">Loading…</string>
+    <string name="error_displaying_location_results">Error displaying location results.</string>
+    <string name="message_no_category">NO CATEGORY</string>
 </resources>

@@ -281,7 +281,7 @@ class MapFragment : Fragment() {
 
             mViewModel.refreshCurrentLocation(mCurrentLocation)
 
-            showToastMessage("3. ${it.latitude} + ${it.longitude}") // TODO: Remove this line later.
+            showToastMessage("3. ${it?.latitude} + ${it?.longitude}") // TODO: Remove this line later.
         }
 
         showToastMessage("requestLocation() called - end.") // TODO: Remove this line later.

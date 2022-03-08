@@ -15,6 +15,10 @@
     <color name="background_dark">#323232</color>
     <color name="errorBackground">@color/background_dark</color>
 
+    <color name="primary_text">#13161a</color>
+    <color name="secondary_text">#404040</color>
+    <color name="tertiary_text">#bdbdbd</color>
+
     <color name="overlay_dark_10">#1A000000</color>
     <color name="overlay_dark_20">#33000000</color>
     <color name="overlay_dark_30">#4D000000</color>

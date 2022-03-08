@@ -1,14 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.screens.venuesoverview.VenuesOverviewFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+        <variable
+            name="viewModel"
+            type="com.adyen.android.assignment.ui.screens.venuesoverview.viewmodels.VenuesOverviewViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Venues Fragment" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.screens.venuesoverview.VenuesOverviewFragment">
 
-</FrameLayout>
+        <!--        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout-->
+        <!--            android:id="@+id/main_swipe_refresh"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent">-->
+
+        <!--            <androidx.recyclerview.widget.RecyclerView-->
+        <!--                android:id="@+id/main_locations_recycler"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:scrollbars="vertical"-->
+        <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+        <!--                tools:listitem="@layout/list_item_venue_overview"-->
+        <!--                android:scrollingCache="true"-->
+        <!--                tools:itemCount="10"-->
+        <!--                app:bindVenues="@{viewModel.venues}"/>-->
+
+        <!--        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>-->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_locations_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_venue_overview"
+            android:scrollingCache="true"
+            tools:itemCount="10"
+            app:bindVenues="@{viewModel.venues}"/>
+
+        <ImageView
+            android:id="@+id/main_locations_empty_glyph"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.32999998"
+            app:srcCompat="@drawable/ic_search_glyph"
+            app:bindVenuesRequestStatusImage="@{viewModel.venuesRequestStatus}"/>
+
+        <TextView
+            android:id="@+id/main_locations_empty_glyph_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/search_glyph_text"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@+id/main_locations_empty_glyph"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:bindVenuesRequestStatusText="@{viewModel.venuesRequestStatus}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

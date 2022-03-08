@@ -9,10 +9,18 @@
         android:id="@+id/mapFragment"
         android:name="com.adyen.android.assignment.ui.screens.map.MapFragment"
         android:label="fragment_map"
-        tools:layout="@layout/fragment_map" />
+        tools:layout="@layout/fragment_map" >
+        <action
+            android:id="@+id/action_mapFragment_to_venuesOverviewFragment"
+            app:destination="@id/venuesOverviewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/venuesOverviewFragment"
         android:name="com.adyen.android.assignment.ui.screens.venuesoverview.VenuesOverviewFragment"
         android:label="fragment_venues_overview"
-        tools:layout="@layout/fragment_venues_overview" />
+        tools:layout="@layout/fragment_venues_overview" >
+        <action
+            android:id="@+id/action_venuesOverviewFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
 </navigation>

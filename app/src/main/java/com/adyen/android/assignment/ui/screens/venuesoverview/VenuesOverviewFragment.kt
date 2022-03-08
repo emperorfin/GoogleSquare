@@ -1,33 +1,30 @@
 package com.adyen.android.assignment.ui.screens.venuesoverview
 
+import android.app.Application
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.adyen.android.assignment.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.adyen.android.assignment.databinding.FragmentVenuesOverviewBinding
+import com.adyen.android.assignment.ui.screens.venuesoverview.adapters.VenueUiModelOverviewRecyclerviewAdapter
+import com.adyen.android.assignment.ui.screens.venuesoverview.viewmodels.VenuesOverviewViewModel
+import com.adyen.android.assignment.ui.screens.venuesoverview.viewmodels.VenuesOverviewViewModelFactory
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
- * Use the [VenuesOverviewFragment.newInstance] factory method to
- * create an instance of this fragment.
  */
 class VenuesOverviewFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private lateinit var mViewModel: VenuesOverviewViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
@@ -35,26 +32,36 @@ class VenuesOverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_venues_overview, container, false)
+//        return inflater.inflate(R.layout.fragment_venues_overview, container, false)
+        val binding = DataBindingUtil.inflate<FragmentVenuesOverviewBinding>(inflater, R.layout.fragment_venues_overview, container, false)
+
+        val application = requireNotNull(this.activity).application
+
+        mViewModel = getVenuesOverviewViewModel(application)
+
+        binding.lifecycleOwner = this
+        binding.viewModel = mViewModel
+
+        val venueAdapterOnClickListener = VenueUiModelOverviewRecyclerviewAdapter.OnClickListener{
+            Toast.makeText(
+                context,
+                "Nearby location: \"${it.name.toUpperCase(Locale.ROOT)}\" \nIcon URL: ${it.iconUrl}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+
+        setupVenueAdapter(binding, venueAdapterOnClickListener)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment VenuesOverviewFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            VenuesOverviewFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun getVenuesOverviewViewModel(application: Application): VenuesOverviewViewModel{
+        val viewModelFactory = VenuesOverviewViewModelFactory(application)
+
+        return ViewModelProvider(this, viewModelFactory).get(VenuesOverviewViewModel::class.java)
+    }
+
+    private fun setupVenueAdapter(binding: FragmentVenuesOverviewBinding, venueAdapterOnClickListener: VenueUiModelOverviewRecyclerviewAdapter.OnClickListener){
+        binding.mainLocationsRecycler.adapter = VenueUiModelOverviewRecyclerviewAdapter(venueAdapterOnClickListener)
     }
 }
