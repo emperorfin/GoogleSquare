@@ -88,7 +88,7 @@ abstract class AppRoomDatabase : RoomDatabase() {
             try {
                 val initialVenueValues: ContentValues = ContentValues()
                 for (venue in venues){
-                    initialVenueValues.put(VenueEntity.COLUMN_INFO_NAME, "${venue.name}")
+                    initialVenueValues.put(VenueEntity.COLUMN_INFO_NAME, "${venue.name} (room sample data)")
                     initialVenueValues.put(VenueEntity.COLUMN_INFO_CATEGORY, "${venue.category}")
                     initialVenueValues.put(VenueEntity.COLUMN_INFO_ICON_PREFIX, "${venue.iconPrefix}")
                     initialVenueValues.put(VenueEntity.COLUMN_INFO_ICON_SUFFIX, "${venue.iconSuffix}")
