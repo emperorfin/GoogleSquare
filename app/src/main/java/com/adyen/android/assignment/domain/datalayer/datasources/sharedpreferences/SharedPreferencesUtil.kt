@@ -8,4 +8,9 @@ package com.adyen.android.assignment.domain.datalayer.datasources.sharedpreferen
 
 
 interface SharedPreferencesUtil {
+
+    fun setVenueOverviewScreenFirstRun(value: Boolean)
+
+    fun getVenueOverviewScreenFirstRun(): Boolean
+
 }

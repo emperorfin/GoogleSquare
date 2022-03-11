@@ -28,14 +28,14 @@ class SharedPreferencesUtilImpl(val context: Context) : SharedPreferencesUtil {
         sharedPreferences = context.getSharedPreferences(DESIRED_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE)
     }
 
-    fun setVenueOverviewScreenFirstRun(value: Boolean) {
+    override fun setVenueOverviewScreenFirstRun(value: Boolean) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit();
         editor.putBoolean(PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN, value);
         editor.commit()
 //        editor.apply()
     }
 
-    fun getVenueOverviewScreenFirstRun(): Boolean {
+    override fun getVenueOverviewScreenFirstRun(): Boolean {
         return sharedPreferences.getBoolean(PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN, true);
     }
 
