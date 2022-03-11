@@ -38,14 +38,38 @@ data class VenueModel(
 
         const val VENUE_EXTRAS_MAP_SIZE_UI_MODEL = 3
 
+        private const val NO_CATEGORY_NAME = "NO_CATEGORY_NAME"
+        const val NO_CATEGORY_PREFIX = ""
+        const val NO_CATEGORY_SUFFIX = ""
+
         fun newInstance(dataTransferObjectVenue: VenueDataTransferObject): VenueModel {
             val name: String = dataTransferObjectVenue.name
-            val category: String = dataTransferObjectVenue.categories.first().name
-            val iconPrefix: String = dataTransferObjectVenue.categories.first().icon.prefix
-            val iconSuffix: String = dataTransferObjectVenue.categories.first().icon.suffix
+
+            val categories = dataTransferObjectVenue.categories
+
+            val category: String = if (categories.isNotEmpty()){
+                categories.first().name
+            }else{
+                NO_CATEGORY_NAME
+            }
+
+//            val iconPrefix: String = dataTransferObjectVenue.categories.first().icon.prefix
+            val iconPrefix: String = if (categories.isNotEmpty()){
+                categories.first().icon.prefix
+            }else{
+                NO_CATEGORY_PREFIX
+            }
+
+//            val iconSuffix: String = dataTransferObjectVenue.categories.first().icon.suffix
+            val iconSuffix: String = if (categories.isNotEmpty()){
+                categories.first().icon.suffix
+            }else{
+                NO_CATEGORY_SUFFIX
+            }
+
             val distance: Int = dataTransferObjectVenue.distance
-            val latitude: Double = dataTransferObjectVenue.geocode.main.latitude
-            val longitude: Double = dataTransferObjectVenue.geocode.main.longitude
+            val latitude: Double = dataTransferObjectVenue.geocodes.main.latitude
+            val longitude: Double = dataTransferObjectVenue.geocodes.main.longitude
 
             return VenueModel(
                 name = name,
@@ -119,6 +143,20 @@ data class VenueModel(
                 distance = venueSampleDataDistance,
                 latitude = venueSampleDataLatitude,
                 longitude = venueSampleDataLongitude
+            )
+        }
+
+        fun newInstance(name: String, category: String, iconPrefix: String, iconSuffix: String,
+                        distance: Int, latitude: Double, longitude: Double): VenueModel {
+
+            return VenueModel(
+                name = name,
+                category = category,
+                iconPrefix = iconPrefix,
+                iconSuffix = iconSuffix,
+                distance = distance,
+                latitude = latitude,
+                longitude = longitude
             )
         }
 

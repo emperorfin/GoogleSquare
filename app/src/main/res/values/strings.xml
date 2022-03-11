@@ -19,4 +19,6 @@
     <string name="loading">Loading…</string>
     <string name="error_displaying_location_results">Error displaying location results.</string>
     <string name="message_no_category">NO CATEGORY</string>
+    <string name="message_no_internet_connection">No internet connection.</string>
+    <string name="message_try_again">Try again</string>
 </resources>

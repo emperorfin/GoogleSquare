@@ -1,5 +1,6 @@
 package com.adyen.android.assignment.ui.uimodels
 
+import com.adyen.android.assignment.R
 import com.adyen.android.assignment.domain.models.VenueModel
 import com.adyen.android.assignment.ui.uimodels.mappers.VenueUiModelMapper
 import com.adyen.android.assignment.domain.constants.VenueExtrasKeysConstant.VAR_ARG_INDEX_0
@@ -12,6 +13,8 @@ import com.adyen.android.assignment.domain.constants.VenueExtrasKeysConstant.VAR
 import com.adyen.android.assignment.domain.constants.VenueExtrasKeysConstant.VENUE_EXTRAS_KEY_DISTANCE
 import com.adyen.android.assignment.domain.constants.VenueExtrasKeysConstant.VENUE_EXTRAS_KEY_LATITUDE
 import com.adyen.android.assignment.domain.constants.VenueExtrasKeysConstant.VENUE_EXTRAS_KEY_LONGITUDE
+import com.adyen.android.assignment.domain.models.VenueModel.Companion.NO_CATEGORY_PREFIX
+import com.adyen.android.assignment.domain.models.VenueModel.Companion.NO_CATEGORY_SUFFIX
 
 
 /**
@@ -35,6 +38,14 @@ data class VenueUiModel(
         const val VAR_ARG_SIZE = 7
 
         const val VENUE_EXTRAS_MAP_SIZE_DOMAIN_MODEL = 3
+
+        const val ICON_PIXEL_32 = 32
+        const val ICON_PIXEL_44 = 44
+        const val ICON_PIXEL_64 = 64
+        const val ICON_PIXEL_88 = 88
+        const val ICON_PIXEL_120 = 120
+
+        const val ICON_BACKGROUND = "bg_"
 
         fun newInstance(domainModelVenue: VenueModel, venueExtras: Map<String, Any>): VenueUiModel {
             val verifiedVenueExtras: Map<String, Any> = VenueUiModelMapper.verifyDomainModelVenueExtras(venueExtras)
@@ -82,6 +93,24 @@ data class VenueUiModel(
 
     }
 
-    val iconUrl: String = iconPrefix + iconSuffix
+    /**
+     * Category Icons ( https://developer.foursquare.com/reference/places-photos-guide#category-icons )
+     * Icons for categories may be returned in the categories response field and are structured in a
+     * similar prefix + size + suffix format. All icons are square images.
+     * Sample Category JSON:
+     * {
+     *   "id":10001
+     *   "name":"Amusement Park"
+     *   "icon":{
+     *       "prefix":"https://ss3.4sqi.net/img/categories_v2/arts_entertainment/themepark_"
+     *       "suffix":".png"
+     *   }
+     * }
+     * To obtain an icon, the only acceptable size values are one of: 32, 44, 64, 88, or 120 (pixels).
+     * For example, the Amusement Park icon url is: https://ss3.4sqi.net/img/categories_v2/arts_entertainment/themepark_120.png
+     * Additionally, a background can be added to any icon by adding bg_ to the URL
+     * (i.e. https://ss3.4sqi.net/img/categories_v2/arts_entertainment/themepark_bg_120.png
+     */
+    val iconUrl: String = iconPrefix + ICON_BACKGROUND + ICON_PIXEL_120 + iconSuffix
 
 }

@@ -38,5 +38,8 @@ sealed class VenueFailures {
     class NonExistentDataMemoryVenueError(val cause: Throwable? = null) : FeatureFailure()
     class NonExistentDataLocalVenueError(val cause: Throwable? = null) : FeatureFailure()
     class NonExistentDataRemoteVenueError(val cause: Throwable? = null) : FeatureFailure()
+
+    // For Repositories
+    class RepositoryGetVenueError(val cause: Throwable? = null) : FeatureFailure()
 }
 

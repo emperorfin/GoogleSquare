@@ -3,7 +3,7 @@ package com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit
 data class VenueDataTransferObject(
     val categories: List<Category>,
     val distance: Int,
-    val geocode: GeoCode,
+    val geocodes: GeoCode,
     val location: Location,
     val name: String,
     val timezone: String,

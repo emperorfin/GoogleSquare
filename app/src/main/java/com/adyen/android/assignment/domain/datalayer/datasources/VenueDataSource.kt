@@ -1,6 +1,7 @@
 package com.adyen.android.assignment.domain.datalayer.datasources
 
 import com.adyen.android.assignment.domain.models.VenueModel
+import com.adyen.android.assignment.domain.uilayer.events.inputs.venue.Params
 import com.adyen.android.assignment.domain.uilayer.events.outputs.DataResultEvent
 
 
@@ -14,7 +15,7 @@ interface VenueDataSource {
 
     suspend fun countVenues(): DataResultEvent<Int>
 
-    suspend fun getVenues(): DataResultEvent<List<VenueModel>>
+    suspend fun getVenues(params: Params): DataResultEvent<List<VenueModel>>
 
     suspend fun saveVenue(venue: VenueModel): DataResultEvent<Long>
 

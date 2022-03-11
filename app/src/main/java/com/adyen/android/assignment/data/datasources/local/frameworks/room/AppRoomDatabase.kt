@@ -55,7 +55,9 @@ abstract class AppRoomDatabase : RoomDatabase() {
                             super.onCreate(db)
 
                             coroutineScope.launch {
-                                populateInitialVenuesSampleDataUsingSqliteDatabaseWithCoroutineThread(db, VenuesDataGeneratorUtil.getVenueEntityArrayListSampleData())
+                                // This is now commented out since real venue data are being cached
+                                // to the database.
+                                //populateInitialVenuesSampleDataUsingSqliteDatabaseWithCoroutineThread(db, VenuesDataGeneratorUtil.getVenueEntityArrayListSampleData())
                             }
                         }
 

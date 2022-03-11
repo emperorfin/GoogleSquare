@@ -14,6 +14,9 @@ import com.adyen.android.assignment.domain.exceptions.VenueFailures.ListNotAvail
 import com.adyen.android.assignment.domain.exceptions.VenueFailures.LocalInsertVenueError
 import com.adyen.android.assignment.domain.exceptions.VenueFailures.LocalDeleteVenueError
 import com.adyen.android.assignment.domain.exceptions.VenueFailures.LocalVenueError
+import com.adyen.android.assignment.domain.uilayer.events.inputs.venue.Params
+import com.adyen.android.assignment.ui.events.inputs.venue.None
+import com.adyen.android.assignment.ui.events.inputs.venue.VenueParams
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -50,23 +53,31 @@ class VenueLocalDataSourceRoom internal constructor(
         return@withContext Error(LocalVenueError())
     }
 
-    override suspend fun getVenues(): DataResultEvent<List<VenueModel>> = withContext(ioDispatcher) {
-        return@withContext try {
-            val entityVenues = venueDao.getVenues()
-
-            if (entityVenues == null)
-                Error(LocalVenueError())
-            else if (entityVenues.isEmpty())
-                Error(ListNotAvailableLocalVenueError(cause = Exception("List of venues not available.")))
-
-            val modelVenues = entityVenues.map {
-                venueModelMapper.transform(it)
+    override suspend fun getVenues(params: Params): DataResultEvent<List<VenueModel>> = withContext(ioDispatcher) {
+        when(params){
+            is VenueParams -> {
+                throw IllegalArgumentException("The argument passed is inappropriate.")
             }
+            is None -> {
+                return@withContext try {
+                    val entityVenues = venueDao.getVenues()
 
-            Success(modelVenues)
+                    if (entityVenues == null)
+                        Error(LocalVenueError())
+                    else if (entityVenues.isEmpty())
+                        Error(ListNotAvailableLocalVenueError(cause = Exception("List of venues not available.")))
 
-        }catch (e: Exception){
-            Error(LocalVenueError(cause = e))
+                    val modelVenues = entityVenues.map {
+                        venueModelMapper.transform(it)
+                    }
+
+                    Success(modelVenues)
+
+                }catch (e: Exception){
+                    Error(LocalVenueError(cause = e))
+                }
+            }
+            else -> throw NotImplementedError("Not yet implemented.")
         }
     }
 

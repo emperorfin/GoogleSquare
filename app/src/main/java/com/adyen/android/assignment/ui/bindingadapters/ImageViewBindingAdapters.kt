@@ -3,9 +3,11 @@ package com.adyen.android.assignment.ui.bindingadapters
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.adyen.android.assignment.BuildConfig
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.ui.screens.venuesoverview.enums.VenuesRequestStatus
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.model.GlideUrl
 import com.bumptech.glide.request.RequestOptions
 
 
@@ -21,8 +23,15 @@ fun setVenueIconUrl(imageView: ImageView, iconUrl: String?, iconWidth: Int?, ico
     iconUrl?.let {
 //        val imgUri = imageUrl.toUri().buildUpon().scheme("https").build()
 
+        val glideUrl = GlideUrl(iconUrl){
+            mapOf(Pair("Authorization", "Bearer ${BuildConfig.API_KEY}"))
+        }
+
         Glide.with(imageView.context)
-            .load(iconUrl)
+            .load(if(iconUrl.contains("http")) iconUrl else R.mipmap.ic_launcher)
+            // This is not necessary since the FourSquare webservice doesn't require authorization
+            // to display images.
+            //.load(glideUrl)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
