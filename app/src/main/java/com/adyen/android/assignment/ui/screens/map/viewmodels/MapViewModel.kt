@@ -1,10 +1,9 @@
 package com.adyen.android.assignment.ui.screens.map.viewmodels
 
+import android.app.Application
 import android.location.Location
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.adyen.android.assignment.ui.utils.InternetConnectivityUtil.hasInternetConnection
 
 
 /**
@@ -13,11 +12,17 @@ import androidx.lifecycle.ViewModel
  */
 
 
-class MapViewModel : ViewModel() {
+class MapViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
+
         const val ERROR_CODE_NO_CURRENT_LOCATION = 501
+
+        const val ERROR_CODE_NO_INTERNET_CONNECTION = "ERROR_CODE_NO_INTERNET_CONNECTION"
+
     }
+
+    private val applicationContext = getApplication<Application>()
 
     var isFirstRun = true
 
@@ -29,13 +34,32 @@ class MapViewModel : ViewModel() {
     val currentLocationResultsError: LiveData<Int>
         get() = _currentLocationResultsError
 
+    private val _noInternetConnectionError = MutableLiveData<String>()
+    val noInternetConnectionError: LiveData<String>
+        get() = _noInternetConnectionError
+
+    fun emitCurrentLocationResultsError(value: Int?){
+        _currentLocationResultsError.postValue(value)
+    }
+
+    fun emitNoInternetConnectionError(value: String?){
+        _noInternetConnectionError.postValue(value)
+    }
+
     fun refreshCurrentLocation(currentLocation: Location?) {
         if (currentLocation == null) {
             _currentLocationResultsError.postValue(ERROR_CODE_NO_CURRENT_LOCATION)
             return
         }
 
-        _currentLocationLiveData.value = currentLocation
+//        if (hasInternetConnection(applicationContext)){
+////            _currentLocationLiveData.value = currentLocation
+//            _currentLocationLiveData.postValue(currentLocation)
+//        } else {
+//            _noInternetConnectionError.postValue(ERROR_CODE_NO_INTERNET_CONNECTION)
+//        }
+
+        _currentLocationLiveData.postValue(currentLocation)
     }
 
 }

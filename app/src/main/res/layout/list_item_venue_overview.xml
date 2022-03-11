@@ -19,6 +19,7 @@
         android:background="?selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:layout_marginBottom="@dimen/_8dp"
         android:onClick="@{() -> clickListener.onVenueClick(venueUiModel)}">
 
         <ImageView

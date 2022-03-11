@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Assignment</string>
+    <string name="app_name">Android Assignment (by Francis)</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
@@ -21,4 +21,5 @@
     <string name="message_no_category">NO CATEGORY</string>
     <string name="message_no_internet_connection">No internet connection.</string>
     <string name="message_try_again">Try again</string>
+    <string name="message_refresh">Refresh</string>
 </resources>

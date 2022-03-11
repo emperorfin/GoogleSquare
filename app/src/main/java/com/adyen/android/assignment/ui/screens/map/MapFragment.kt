@@ -2,6 +2,7 @@ package com.adyen.android.assignment.ui.screens.map
 
 import android.Manifest
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -22,13 +23,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.databinding.FragmentMapBinding
+import com.adyen.android.assignment.ui.screens.map.contracts.IMapFragmentCallbacks
 import com.adyen.android.assignment.ui.screens.map.viewmodels.MapViewModel
+import com.adyen.android.assignment.ui.screens.map.viewmodels.MapViewModelFactory
 import com.adyen.android.assignment.ui.screens.utils.ErrorUtil
 import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
+import com.adyen.android.assignment.ui.utils.InternetConnectivityUtil.hasInternetConnection
 
 /**
  * A simple [Fragment] subclass.
@@ -51,6 +55,8 @@ class MapFragment : Fragment() {
     private var isLocationPermissionProcessStarted: Boolean = false
 
     private var mLocationPermissionDialog: AlertDialog? = null
+
+    private lateinit var mIMapFragmentCallbacks: IMapFragmentCallbacks
 
     companion object {
 
@@ -77,6 +83,8 @@ class MapFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mIMapFragmentCallbacks = requireActivity() as IMapFragmentCallbacks
+
 //        requestLocation()
     }
 
@@ -87,7 +95,10 @@ class MapFragment : Fragment() {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_map, container, false)
 
-        mViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+
+//        mViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+        mViewModel = getMapViewModel(application)
 
         // Do not request for location coordinates since it would be available after configuration changes.
         if (mViewModel.isFirstRun)
@@ -103,6 +114,8 @@ class MapFragment : Fragment() {
             dismissSnackBar()
 
             if (it != null){
+                mIMapFragmentCallbacks.onCurrentLocationReady(it)
+
                 showToastMessage("currentLocationLiveData != null") // TODO: Remove this line later.
 
                 val latitudeNewZoom = it.latitude + (-0.00394422)
@@ -117,6 +130,10 @@ class MapFragment : Fragment() {
 
                 binding.map.visibility = View.VISIBLE
 
+                if (!hasInternetConnection(application)){
+                    mViewModel.emitNoInternetConnectionError(MapViewModel.ERROR_CODE_NO_INTERNET_CONNECTION)
+                }
+
             }else{
                 showToastMessage("currentLocationLiveData == null") // TODO: Remove this line later.
 
@@ -125,6 +142,20 @@ class MapFragment : Fragment() {
                 requireActivity().finish()
             }
 
+        })
+
+        mViewModel.noInternetConnectionError.observe(viewLifecycleOwner, Observer {
+            if (it != null && it == MapViewModel.ERROR_CODE_NO_INTERNET_CONNECTION){
+                mSnackBar = ErrorUtil.showError(
+                    binding.map,
+                    R.string.message_no_internet_connection,
+                    R.string.message_refresh,
+                    View.OnClickListener {
+                        requestLocation()
+                    })
+            }
+
+            mViewModel.emitNoInternetConnectionError(null)
         })
 
         mViewModel.currentLocationResultsError.observe(viewLifecycleOwner, Observer {
@@ -159,6 +190,8 @@ class MapFragment : Fragment() {
                         requireActivity().finish()
                     })
             }
+
+            mViewModel.emitCurrentLocationResultsError(null)
         })
 
         return binding.root
@@ -219,6 +252,12 @@ class MapFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun getMapViewModel(application: Application): MapViewModel{
+        val viewModelFactory = MapViewModelFactory(application)
+
+        return ViewModelProvider(this, viewModelFactory).get(MapViewModel::class.java)
     }
 
     private fun requestLocation(){

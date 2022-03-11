@@ -34,7 +34,8 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="@dimen/spacing_medium">
+                    android:padding="@dimen/spacing_medium"
+                    android:id="@+id/linearlay_map">
 
                     <ImageButton
                         android:id="@+id/map_button"
@@ -45,6 +46,7 @@
                         app:srcCompat="@drawable/ic_near_me" />
 
                     <TextView
+                        android:id="@+id/tv_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/image_button_map"
@@ -63,7 +65,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:padding="@dimen/spacing_medium">
+                    android:padding="@dimen/spacing_medium"
+                    android:id="@+id/linearlay_venue_list">
 
                     <ImageButton
                         android:id="@+id/list_button"
@@ -74,6 +77,7 @@
                         app:srcCompat="@drawable/ic_format_list_bulleted" />
 
                     <TextView
+                        android:id="@+id/tv_venue_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/image_button_list"
