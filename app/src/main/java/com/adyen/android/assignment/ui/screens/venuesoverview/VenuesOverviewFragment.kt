@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.adyen.android.assignment.R
 import com.adyen.android.assignment.data.datasources.local.frameworks.room.AppRoomDatabase
 import com.adyen.android.assignment.data.datasources.local.frameworks.room.dao.VenueDao
@@ -19,6 +20,7 @@ import com.adyen.android.assignment.data.repositories.VenuesOverviewRepositoryIm
 import com.adyen.android.assignment.databinding.FragmentVenuesOverviewBinding
 import com.adyen.android.assignment.ui.events.inputs.venue.None
 import com.adyen.android.assignment.ui.events.inputs.venue.VenueParams
+import com.adyen.android.assignment.ui.screens.MainActivity
 import com.adyen.android.assignment.ui.screens.venuesoverview.adapters.VenueUiModelOverviewRecyclerviewAdapter
 import com.adyen.android.assignment.ui.screens.venuesoverview.viewmodels.VenuesOverviewViewModel
 import com.adyen.android.assignment.ui.screens.venuesoverview.viewmodels.VenuesOverviewViewModelFactory
@@ -61,8 +63,15 @@ class VenuesOverviewFragment : Fragment() {
 
         venuesOverviewRepository = getVenuesOverviewRepository(application)
 
-//        val venueParams = getVenueParams(...) // TODO: use this
-        val paramsSomething: VenueParams = getVenueParamsSample() //test
+        val currentLocationArguments = VenuesOverviewFragmentArgs.fromBundle(requireArguments())
+
+        val latitude: Double = currentLocationArguments.latitude.toDouble()
+        val longitude: Double = currentLocationArguments.longitude.toDouble()
+
+        showToastMessage("Passed location: $latitude, $longitude")
+
+//        val paramsSomething: VenueParams = getVenueParamsSample()
+        val paramsSomething = getVenueParams(latitude, longitude)
         val paramsNothing = None()
 
         mViewModel = getVenuesOverviewViewModel(application, venuesOverviewRepository)
@@ -93,6 +102,8 @@ class VenuesOverviewFragment : Fragment() {
                         )
                 })
             }
+
+            mViewModel.emitNoInternetConnectionError(null)
         })
 
         binding.lifecycleOwner = this
@@ -151,10 +162,7 @@ class VenuesOverviewFragment : Fragment() {
         )
     }
 
-    private fun getVenueParams(currentLocation: Location): VenueParams{
-        val latitude: Double = currentLocation.latitude
-        val longitude: Double = currentLocation.longitude
-
+    private fun getVenueParams(latitude: Double?, longitude: Double?): VenueParams{
         return VenueParams(
             latitude = latitude,
             longitude = longitude
@@ -182,4 +190,7 @@ class VenuesOverviewFragment : Fragment() {
             mSnackBar = null
         }
     }
+
+    private fun showToastMessage(message: String) =
+        Toast.makeText(requireActivity(), message, Toast.LENGTH_SHORT).show()
 }

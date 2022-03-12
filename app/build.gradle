@@ -2,6 +2,7 @@ apply plugin: "com.android.application"
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'androidx.navigation.safeargs'
 
 if (!file("local.gradle").exists()) {
     exec {
@@ -76,8 +77,8 @@ dependencies {
     implementation "androidx.startup:startup-runtime:1.0.0"
 
     // Navigation Components ------------------------------------------------------------------------
-    implementation "androidx.navigation:navigation-fragment-ktx:2.3.5"
-    implementation "androidx.navigation:navigation-ui-ktx:2.3.5"
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
 
     // Google Maps ------------------------------------------------------------------------
 //    implementation 'com.google.android.gms:play-services-maps:17.0.0'

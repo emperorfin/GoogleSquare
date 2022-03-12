@@ -77,6 +77,10 @@ class VenuesOverviewViewModel(
         // Option 4 of 4 (LIVE DATA) - see loadVenues(...)
     }
 
+    fun emitNoInternetConnectionError(value: String?){
+        _noInternetConnectionError.postValue(value)
+    }
+
     private fun generateVenuesSampleData() = viewModelScope.launch {
         _venuesRequestStatus.value = VenuesRequestStatus.LOADING
 
