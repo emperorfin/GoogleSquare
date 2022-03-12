@@ -3,9 +3,13 @@ package com.adyen.android.assignment.ui.screens.map
 import android.Manifest
 import android.app.Activity
 import android.app.Application
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -33,6 +37,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.material.snackbar.Snackbar
 import com.adyen.android.assignment.ui.utils.InternetConnectivityUtil.hasInternetConnection
+import com.adyen.android.assignment.ui.utils.InternetConnectivityTypeUtil.getConnectivityType
+import com.adyen.android.assignment.ui.utils.InternetConnectivityTypeUtil.ACTION_CONNECTIVITY_CHANGE
+import com.adyen.android.assignment.ui.utils.InternetConnectivityTypeUtil.TYPE_NOT_CONNECTED
 
 /**
  * A simple [Fragment] subclass.
@@ -57,6 +64,29 @@ class MapFragment : Fragment() {
     private var mLocationPermissionDialog: AlertDialog? = null
 
     private lateinit var mIMapFragmentCallbacks: IMapFragmentCallbacks
+
+    private var internetConnectivityChangeReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val internetConnectivityType: Int = getConnectivityType(context!!)
+
+            if (ACTION_CONNECTIVITY_CHANGE == intent?.action) {
+                if (internetConnectivityType == TYPE_NOT_CONNECTED) {
+                    showToastMessage("Internet connectivity turned off.")
+                } else {
+                    showToastMessage("Internet connectivity turned on.")
+
+                    mSnackBar?.let {
+                        it.dismiss()
+                        mSnackBar = null
+
+                        showToastMessage("Automatic map refreshing...")
+
+                        requestLocation()
+                    }
+                }
+            }
+        }
+    }
 
     companion object {
 
@@ -210,6 +240,21 @@ class MapFragment : Fragment() {
 */
 
         setSystemBarColor(requireActivity(), R.color.colorPrimary)
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+
+        requireActivity().registerReceiver(internetConnectivityChangeReceiver, intentFilter)
+    }
+
+    override fun onStop() {
+        requireActivity().unregisterReceiver(internetConnectivityChangeReceiver)
+
+        super.onStop()
     }
 
     override fun onResume() {
