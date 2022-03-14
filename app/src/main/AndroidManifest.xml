@@ -17,12 +17,22 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
-             (See the file "res/values/google_maps_api.xml").
+             The API key for Google Maps-based APIs.
+        -->
+<!--        <meta-data-->
+<!--            android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="@string/google_maps_key" />-->
+        <!--
+             The API key for Google Maps-based APIs.
+             Note: The Google Maps API Key has been moved to local.properties which is a safer place.
+             The @string/google_maps_api_key is from app/build/generated/res/resValues/debug/values/gradleResValues.xml
+             which is an automatically generated file under the "build" folder as you can see from
+             the above file location.
+             So this means that the Google Maps API Key has been kept secret.
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_api_key" />
 
         <activity android:name=".ui.screens.MainActivity">
             <intent-filter>

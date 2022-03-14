@@ -1,4 +1,8 @@
 <resources>
-    <!-- Google maps API key ... would generally be in external gradle.properties or environment variable but for ease of demo app its in here -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBF2pUP5WNXdLLFyFlpZ-HEzEszx4pR1GI</string>
+    <!--
+        Google Maps API Key would generally be in external x.properties file (e.g. local.properties)
+        or environment variable.
+        The Google Maps API Key has been moved to local.properties which is a safer place.
+     -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">GOOGLE_MAPS_API_KEY_HERE_HAS_BEEN_MOVED_TO_LOCAL.PROPERTIES</string>
 </resources>
