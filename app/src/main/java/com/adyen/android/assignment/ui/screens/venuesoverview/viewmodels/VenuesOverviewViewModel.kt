@@ -10,6 +10,7 @@ import com.adyen.android.assignment.data.datasources.local.frameworks.room.AppRo
 import com.adyen.android.assignment.data.datasources.local.frameworks.room.entitysources.VenueLocalDataSourceRoom
 import com.adyen.android.assignment.data.datasources.sharedpreferences.SharedPreferencesUtilImpl
 import com.adyen.android.assignment.data.repositories.VenuesOverviewRepositoryImpl
+import com.adyen.android.assignment.domain.datalayer.repositories.VenuesOverviewRepository
 import com.adyen.android.assignment.domain.models.VenueModel
 import com.adyen.android.assignment.domain.models.mappers.VenueModelMapper
 import com.adyen.android.assignment.domain.uilayer.events.outputs.DataResultEvent
@@ -38,7 +39,8 @@ import kotlin.properties.Delegates
 
 class VenuesOverviewViewModel(
     application: Application,
-    private val venuesOverviewRepository: VenuesOverviewRepositoryImpl
+//    private val venuesOverviewRepository: VenuesOverviewRepositoryImpl
+    private val venuesOverviewRepository: VenuesOverviewRepository
 ) : AndroidViewModel(application) {
 
     companion object {

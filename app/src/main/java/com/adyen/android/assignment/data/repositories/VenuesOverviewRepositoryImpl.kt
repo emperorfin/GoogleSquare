@@ -2,6 +2,7 @@ package com.adyen.android.assignment.data.repositories
 
 import com.adyen.android.assignment.data.datasources.local.frameworks.room.entitysources.VenueLocalDataSourceRoom
 import com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit.modelsources.VenueRemoteDataSourceRetrofit
+import com.adyen.android.assignment.domain.datalayer.datasources.VenueDataSource
 import com.adyen.android.assignment.domain.datalayer.repositories.VenuesOverviewRepository
 import com.adyen.android.assignment.domain.models.VenueModel
 import com.adyen.android.assignment.domain.uilayer.events.outputs.DataResultEvent
@@ -29,8 +30,10 @@ import kotlin.math.log
 
 
 class VenuesOverviewRepositoryImpl(
-    val venueLocalDataSource: VenueLocalDataSourceRoom,
-    private val venueRemoteDataSource: VenueRemoteDataSourceRetrofit,
+//    val venueLocalDataSource: VenueLocalDataSourceRoom,
+    val venueLocalDataSource: VenueDataSource,
+//    private val venueRemoteDataSource: VenueRemoteDataSourceRetrofit,
+    private val venueRemoteDataSource: VenueDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : VenuesOverviewRepository {
 
