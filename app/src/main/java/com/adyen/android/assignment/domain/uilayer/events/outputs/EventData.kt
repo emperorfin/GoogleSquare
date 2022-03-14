@@ -20,7 +20,7 @@ package com.adyen.android.assignment.domain.uilayer.events.outputs
  *
  * @param T The data type of the event content of this interface's concrete class.
  */
-interface LiveDataEvent<out T> {
+interface EventData<out T> {
 
     /**
      * When this abstract function is implemented in a live data event concrete class, it should

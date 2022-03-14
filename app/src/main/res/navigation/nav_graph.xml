@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_map" >
         <action
             android:id="@+id/action_mapFragment_to_venuesOverviewFragment"
-            app:destination="@id/venuesOverviewFragment" />
+            app:destination="@id/venuesOverviewFragment"
+            app:popUpTo="@id/venuesOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/venuesOverviewFragment"
@@ -21,7 +22,9 @@
         tools:layout="@layout/fragment_venues_overview" >
         <action
             android:id="@+id/action_venuesOverviewFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:popUpTo="@id/mapFragment"
+            app:popUpToInclusive="true"/>
         <argument
             android:name="latitude"
             app:argType="string" />

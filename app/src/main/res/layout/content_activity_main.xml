@@ -43,7 +43,8 @@
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         app:tint="@color/colorPrimary"
-                        app:srcCompat="@drawable/ic_near_me" />
+                        app:srcCompat="@drawable/ic_near_me"
+                        android:onClick="@{(view) -> viewModelIncluded.openMapScreen(view)}" />
 
                     <TextView
                         android:id="@+id/tv_map"
@@ -52,7 +53,8 @@
                         android:text="@string/image_button_map"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:onClick="@{(view) -> viewModelIncluded.openMapScreen(view)}" />
 
                 </LinearLayout>
 
@@ -74,7 +76,8 @@
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         app:tint="@color/colorPrimary"
-                        app:srcCompat="@drawable/ic_format_list_bulleted" />
+                        app:srcCompat="@drawable/ic_format_list_bulleted"
+                        android:onClick="@{(view) -> viewModelIncluded.openVenuesScreen(view)}" />
 
                     <TextView
                         android:id="@+id/tv_venue_list"
@@ -83,7 +86,8 @@
                         android:text="@string/image_button_list"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/colorPrimary"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:onClick="@{(view) -> viewModelIncluded.openVenuesScreen(view)}" />
 
                 </LinearLayout>
 
