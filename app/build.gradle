@@ -16,11 +16,11 @@ apply from: "local.gradle"
 android {
 //    buildToolsVersion "30.0.2" //"23.0.1" //"30.0.2"
 
-    compileSdkVersion 30 //31
+    compileSdkVersion 28 // 30 //31
     defaultConfig {
         applicationId "com.adyen.android.assignment"
         minSdkVersion 26 // old: 21. minSdkVersion of 26 this required for "androidx.startup:startup-runtime:1.0.0"
-        targetSdkVersion 30 //31
+        targetSdkVersion 28 // 30 //31
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -51,6 +51,10 @@ android {
         dataBinding true
     }
 
+    testOptions.unitTests {
+        includeAndroidResources = true
+    }
+
 }
 
 dependencies {
@@ -61,6 +65,15 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 
     testImplementation "junit:junit:4.13.2"
+    // Hamcrest ----------------------------------------------------------------------
+    testImplementation "org.hamcrest:hamcrest-all:$version_hamcrest"
+    // AndroidX Test - JVM Testing ---------------------------------------------------
+    testImplementation "androidx.test.ext:junit-ktx:$version_androidx_test_ext_kotlin_runner"
+    testImplementation "androidx.test:core-ktx:$version_androidx_test_core"
+    // Robolectric ------------------------------------------------------------------
+    testImplementation "org.robolectric:robolectric:$version_robolectric"
+    // Architecture Components Core Testing Library ---------------------------------
+    testImplementation "androidx.arch.core:core-testing:$version_arch_testing"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -69,8 +82,9 @@ dependencies {
 //    implementation "androidx.core:core-ktx:1.7.0"
     implementation "androidx.core:core-ktx:1.6.0"
 
-    implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    // Retrofit ------------------------------------------------------------------
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 
     // Required by <provider android:name="androidx.startup.InitializationProvider" ... /> in the
     // AndroidManifest.xml file.
@@ -82,18 +96,17 @@ dependencies {
 
     // Google Maps ------------------------------------------------------------------------
 //    implementation 'com.google.android.gms:play-services-maps:17.0.0'
-    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation "com.google.android.gms:play-services-maps:$version_play_services_maps"
 //    implementation('com.google.android.libraries.places:places:1.0.0') {
 //        exclude module: 'glide'
 //    }
-    implementation 'com.google.android.gms:play-services-location:19.0.1'
+    implementation "com.google.android.gms:play-services-location:$version_play_services_location"
 
     // Room ------------------------------------------------------------------------
-    def version_room = "2.3.0"
     implementation "androidx.room:room-runtime:$version_room"
     implementation "androidx.room:room-ktx:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
 
     // Glide ------------------------------------------------------------------------
-    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    implementation "com.github.bumptech.glide:glide:$version_glide"
 }

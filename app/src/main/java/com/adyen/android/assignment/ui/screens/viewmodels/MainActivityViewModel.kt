@@ -42,8 +42,11 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         _currentLocationLiveData.postValue(currentLocation)
     }
 
-    fun showComingSoonMessageToast(@StringRes message: Int){
+    // Return type just for the purpose of testing.
+    fun showComingSoonMessageToast(@StringRes message: Int): Int{
         Toast.makeText(applicationContext, message, Toast.LENGTH_LONG).show()
+
+        return message
     }
 
 //    fun openMapScreen(){
