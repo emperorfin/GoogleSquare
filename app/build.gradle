@@ -74,6 +74,8 @@ dependencies {
     testImplementation "org.robolectric:robolectric:$version_robolectric"
     // Architecture Components Core Testing Library ---------------------------------
     testImplementation "androidx.arch.core:core-testing:$version_arch_testing"
+    // Kotlinx Coroutines Test ------------------------------------------------------
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

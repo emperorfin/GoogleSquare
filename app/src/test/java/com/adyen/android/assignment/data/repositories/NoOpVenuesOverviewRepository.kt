@@ -1,6 +1,8 @@
 package com.adyen.android.assignment.data.repositories
 
+import com.adyen.android.assignment.domain.datalayer.datasources.FakeVenueDataSource
 import com.adyen.android.assignment.domain.datalayer.datasources.VenueDataSource
+import com.adyen.android.assignment.domain.datalayer.repositories.FakeVenuesOverviewRepository
 import com.adyen.android.assignment.domain.datalayer.repositories.VenuesOverviewRepository
 import com.adyen.android.assignment.domain.models.VenueModel
 import com.adyen.android.assignment.domain.uilayer.events.outputs.DataResultEvent
@@ -14,10 +16,10 @@ import com.adyen.android.assignment.ui.events.inputs.venue.VenueParams
  */
 
 
-class FakeVenuesOverviewRepository(
-    val venueLocalDataSource: VenueDataSource,
-    private val venueRemoteDataSource: VenueDataSource,
-) : VenuesOverviewRepository {
+class NoOpVenuesOverviewRepository(
+    val venueLocalDataSource: FakeVenueDataSource,
+    private val venueRemoteDataSource: FakeVenueDataSource,
+) : FakeVenuesOverviewRepository {
     override suspend fun countVenues(): DataResultEvent<Int> {
         TODO("Not yet implemented")
     }

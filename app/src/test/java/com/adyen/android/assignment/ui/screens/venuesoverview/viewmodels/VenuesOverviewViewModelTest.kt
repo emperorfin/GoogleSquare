@@ -5,7 +5,7 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.adyen.android.assignment.data.datasources.local.frameworks.room.entitysources.FakeVenueLocalDataSourceRoom
 import com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit.modelsources.FakeVenueRemoteDataSourceRetrofit
-import com.adyen.android.assignment.data.repositories.FakeVenuesOverviewRepository
+import com.adyen.android.assignment.data.repositories.NoOpVenuesOverviewRepository
 import com.adyen.android.assignment.ui.extentions.getOrAwaitValue
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.*
@@ -44,7 +44,7 @@ class VenuesOverviewViewModelTest {
         // Given a fresh ViewModel
         val venueLocalDataSourceRoom = FakeVenueLocalDataSourceRoom()
         val venueRemoteDataSourceRetrofit = FakeVenueRemoteDataSourceRetrofit()
-        val venueOverviewRepository = FakeVenuesOverviewRepository(venueLocalDataSourceRoom, venueRemoteDataSourceRetrofit)
+        val venueOverviewRepository = NoOpVenuesOverviewRepository(venueLocalDataSourceRoom, venueRemoteDataSourceRetrofit)
         val venuesOverviewViewModel = VenuesOverviewViewModel(ApplicationProvider.getApplicationContext(), venueOverviewRepository)
 
         // When emitting no internet connection results error.
