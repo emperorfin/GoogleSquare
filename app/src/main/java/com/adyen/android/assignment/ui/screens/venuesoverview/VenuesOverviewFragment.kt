@@ -57,7 +57,10 @@ class VenuesOverviewFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 //        return inflater.inflate(R.layout.fragment_venues_overview, container, false)
-        val binding = DataBindingUtil.inflate<FragmentVenuesOverviewBinding>(inflater, R.layout.fragment_venues_overview, container, false)
+        val binding =
+            DataBindingUtil.inflate<FragmentVenuesOverviewBinding>(
+                inflater, R.layout.fragment_venues_overview, container, false
+            )
 
         val application = requireNotNull(this.activity).application
 
@@ -68,18 +71,12 @@ class VenuesOverviewFragment : Fragment() {
         val latitude: Double = currentLocationArguments.latitude.toDouble()
         val longitude: Double = currentLocationArguments.longitude.toDouble()
 
-        showToastMessage("Passed location: $latitude, $longitude")
-
 //        val paramsSomething: VenueParams = getVenueParamsSample()
         val paramsSomething = getVenueParams(latitude, longitude)
         val paramsNothing = None()
 
         mViewModel = getVenuesOverviewViewModel(application, venuesOverviewRepository)
-//        mViewModel.loadVenues(
-//            paramsNothing = paramsNothing,
-//            paramsSomething = paramsSomething,
-//            true
-//        )
+
         // Doesn't request for either remote or local venues since they would be available after
         // configuration changes (screen rotation in this case).
         if (mViewModel.isFirstRun)
@@ -116,11 +113,9 @@ class VenuesOverviewFragment : Fragment() {
                 "NO_ICON_URL"
             }
 
-            Toast.makeText(
-                context,
-                "Nearby location: \"${it.name.toUpperCase(Locale.ROOT)}\" \nIcon URL: $iconUrlNew",
-                Toast.LENGTH_SHORT
-            ).show()
+            showToastMessage(
+                "Nearby location: \"${it.name.toUpperCase(Locale.ROOT)}\" \nIcon URL: $iconUrlNew"
+            )
         }
 
         setupVenueAdapter(binding, venueAdapterOnClickListener)
@@ -140,14 +135,20 @@ class VenuesOverviewFragment : Fragment() {
         dismissSnackBar()
     }
 
-    private fun getVenuesOverviewViewModel(application: Application, venuesOverviewRepository: VenuesOverviewRepositoryImpl): VenuesOverviewViewModel{
+    private fun getVenuesOverviewViewModel(
+        application: Application, venuesOverviewRepository: VenuesOverviewRepositoryImpl
+    ): VenuesOverviewViewModel{
         val viewModelFactory = VenuesOverviewViewModelFactory(application, venuesOverviewRepository)
 
         return ViewModelProvider(this, viewModelFactory).get(VenuesOverviewViewModel::class.java)
     }
 
-    private fun setupVenueAdapter(binding: FragmentVenuesOverviewBinding, venueAdapterOnClickListener: VenueUiModelOverviewRecyclerviewAdapter.OnClickListener){
-        binding.mainLocationsRecycler.adapter = VenueUiModelOverviewRecyclerviewAdapter(venueAdapterOnClickListener)
+    private fun setupVenueAdapter(
+        binding: FragmentVenuesOverviewBinding,
+        venueAdapterOnClickListener: VenueUiModelOverviewRecyclerviewAdapter.OnClickListener
+    ){
+        binding.mainLocationsRecycler.adapter =
+            VenueUiModelOverviewRecyclerviewAdapter(venueAdapterOnClickListener)
     }
 
     private fun getVenuesOverviewRepository(application: Application): VenuesOverviewRepositoryImpl{

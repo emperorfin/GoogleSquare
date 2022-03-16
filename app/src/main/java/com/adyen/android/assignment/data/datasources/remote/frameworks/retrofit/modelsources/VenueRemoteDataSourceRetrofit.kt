@@ -6,11 +6,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.adyen.android.assignment.R
 import com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit.PlacesService
 import com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit.VenueRecommendationsQueryBuilder
 import com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit.models.venue.ResponseWrapper
 import com.adyen.android.assignment.data.datasources.remote.frameworks.retrofit.models.venue.VenueDataTransferObject
 import com.adyen.android.assignment.domain.datalayer.datasources.VenueDataSource
+import com.adyen.android.assignment.domain.exceptions.VenueFailures
+import com.adyen.android.assignment.domain.exceptions.VenueFailures.ListNotAvailableRemoteVenueError
 import com.adyen.android.assignment.domain.models.VenueModel
 import com.adyen.android.assignment.domain.models.mappers.VenueModelMapper
 import com.adyen.android.assignment.domain.uilayer.events.inputs.venue.Params
@@ -44,11 +47,15 @@ class VenueRemoteDataSourceRetrofit internal constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun getVenues(params: Params): DataResultEvent<List<VenueModel>> = withContext(ioDispatcher) {
+    override suspend fun getVenues(
+        params: Params
+    ): DataResultEvent<List<VenueModel>> = withContext(ioDispatcher) {
         when(params){
             is VenueParams -> {
                 if (params.latitude == null || params.longitude == null)
-                    throw IllegalArgumentException("The latitude and longitude must not be null.")
+                    throw IllegalArgumentException(
+                        context.getString(R.string.error_lat_long_mustnt_be_null)
+                    )
 
                 val currentLatitude: Double = params.latitude
                 val currentLongitude: Double = params.longitude
@@ -57,110 +64,42 @@ class VenueRemoteDataSourceRetrofit internal constructor(
                     .setLatitudeLongitude(latitude = currentLatitude, longitude = currentLongitude)
                     .build()
 
-                //test
-//                val dataResultEventLiveData = MutableLiveData<DataResultEvent<List<VenueModel>>>()
-//                lateinit var dataResultEventVenueModelList: DataResultEvent<List<VenueModel>>
-//
-//                PlacesService.instance.getVenueRecommendations(query).enqueue(object : Callback<ResponseWrapper> {
-//                    override fun onResponse(
-//                        call: Call<ResponseWrapper>,
-//                        response: Response<ResponseWrapper>
-//                    ) {
-//                        if (response.isSuccessful && response.body() != null) {
-//                            response.body()?.let {
-//                                val modelVenues: List<VenueModel> = buildVenueModelList(it.venues!!)
-//
-////                                dataResultEventVenueModelList = Success(modelVenues)
-//                                dataResultEventLiveData.postValue(Success(modelVenues))
-//                            }
-//                        } else {
-//                            onFailure(call, Throwable("Unsuccessful request for venues: " + response.code()))
-//                        }
-//                    }
-//
-//                    override fun onFailure(call: Call<ResponseWrapper>, t: Throwable) {
-////                        dataResultEventVenueModelList = Error(RemoteVenueError(cause = t))
-//                        dataResultEventLiveData.postValue(Error(RemoteVenueError(cause = t)))
-//                    }
-//                })
-//                withContext(Dispatchers.Main){
-//                    dataResultEventLiveData.observeForever {
-//                        dataResultEventVenueModelList = it
-//                    }
-//                }
-//                return@withContext dataResultEventVenueModelList
-
-//                val response = PlacesService.instance.getVenueRecommendations(query).execute()
-//                if (response.isSuccessful && response.body() != null){
-//                    response.body()?.let {
-//                        it.venues?.let {venues ->
-//                            val modelVenues: List<VenueModel> = buildVenueModelList(venues)
-//                            return@withContext Success(modelVenues)
-//                        }
-//                    }
-//                }
-//                return@withContext Error(RemoteVenueError(Exception("Unsuccessful request for venues: " + response.code())))
-
-
-//                val response = PlacesService.instance.getVenueRecommendations(query)
-//                lateinit var dataResultEventVenueModelList: DataResultEvent<List<VenueModel>>
-//                withContext(Dispatchers.Main){
-//                    if (response.isSuccessful && response.body() != null){
-//                        response.body()?.let {
-//                            it.venues?.let {venues ->
-//                                val modelVenues: List<VenueModel> = buildVenueModelList(venues)
-//                                return@withContext Success(modelVenues)
-//                            }
-//                        }
-//                    }
-//                    return@withContext Error(RemoteVenueError(Exception("Unsuccessful request for venues: " + response.code())))
-//                }
-//                return@withContext Error(RemoteVenueError(Exception("Unsuccessful request for venues: " + response.code())))
-
-//                val response = PlacesService.instance.getVenueRecommendations(query)
-//                lateinit var dataResultEventVenueModelList: DataResultEvent<List<VenueModel>>
-//                withContext(Dispatchers.Main){
-//                    if (response.isSuccessful){ //  && response.body() != null
-//                        response.body()?.let {
-//                            it.venues?.let {venues ->
-//                                val modelVenues: List<VenueModel> = buildVenueModelList(venues)
-//                                return@withContext Success(modelVenues)
-//                            }
-//                        }
-//                    }
-//                    return@withContext Error(RemoteVenueError(Exception("Unsuccessful request for venues: " + response.code())))
-//                }
-//                return@withContext Error(RemoteVenueError(Exception("Unsuccessful request for venues: " + response.code())))
-
                 val response = PlacesService.instance.getVenueRecommendations(query)
                 lateinit var dataResultEventVenueModelList: DataResultEvent<List<VenueModel>>
                 withContext(Dispatchers.Main){
-                    if (response.isSuccessful){ //  && response.body() != null
+                    if (response.isSuccessful){ // && response.body() != null
                         response.body()?.let {
-
-                            Toast.makeText(context, "${it.results?.size}", Toast.LENGTH_LONG).show()
-                            Toast.makeText(context, "it: ${it.results}", Toast.LENGTH_LONG).show()
 
                             it.results?.let {venues ->
                                 val modelVenues: List<VenueModel> = buildVenueModelList(venues)
+
 //                                return@withContext Success(modelVenues)
-                                Toast.makeText(context, "(1)", Toast.LENGTH_LONG).show()
-                                return@withContext Success(modelVenues)
+                                return@withContext if (venues.isNotEmpty()) {
+                                    Success(modelVenues)
+                                } else {
+                                    Error(ListNotAvailableRemoteVenueError())
+                                }
                             }
                         }
                     }
-                    Toast.makeText(context, "(2)", Toast.LENGTH_LONG).show()
-                    return@withContext Error(RemoteVenueError(Exception("Unsuccessful request for venues: " + response.code())))
+                    return@withContext Error(
+                        RemoteVenueError(
+                            Exception(context.
+                                getString(R.string.error_unsuccesful_venues_request) +
+                                        response.code()
+                            )
+                        )
+                    )
                 }
-//                Toast.makeText(context, "(3)", Toast.LENGTH_LONG).show()
-//                return@withContext Error(RemoteVenueError(Exception("Unsuccessful request for venues: " + response.code())))
 
 
             }
             is None -> {
-                throw IllegalArgumentException("The argument passed is inappropriate.")
+                throw IllegalArgumentException(
+                    context.getString(R.string.error_inappropriate_argument_passed)
+                )
             }
-            else -> throw NotImplementedError("Not yet implemented.")
+            else -> throw NotImplementedError(context.getString(R.string.error_not_yet_implemented))
         }
     }
 
@@ -176,7 +115,9 @@ class VenueRemoteDataSourceRetrofit internal constructor(
         TODO("Not yet implemented")
     }
 
-    private fun buildVenueModelList(dataTransferObjectVenues: List<VenueDataTransferObject>): List<VenueModel> {
+    private fun buildVenueModelList(
+        dataTransferObjectVenues: List<VenueDataTransferObject>
+    ): List<VenueModel> {
         return dataTransferObjectVenues.map {
             venueModelMapper.transform(it)
         }

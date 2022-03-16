@@ -55,7 +55,9 @@ class MapFragment : Fragment() {
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mLocationCallback: LocationCallback
     private var mCurrentLocation: Location? = null
-    private val locationProviderClient: FusedLocationProviderClient by lazy { FusedLocationProviderClient(requireActivity()) }
+    private val locationProviderClient: FusedLocationProviderClient by lazy {
+        FusedLocationProviderClient(requireActivity())
+    }
 
     private var mSnackBar: Snackbar? = null
 
@@ -71,15 +73,15 @@ class MapFragment : Fragment() {
 
             if (ACTION_CONNECTIVITY_CHANGE == intent?.action) {
                 if (internetConnectivityType == TYPE_NOT_CONNECTED) {
-                    showToastMessage("Internet connectivity turned off.")
+                    showToastMessage(getString(R.string.toast_internet_off))
                 } else {
-                    showToastMessage("Internet connectivity turned on.")
+                    showToastMessage(getString(R.string.toast_internet_on))
 
                     mSnackBar?.let {
                         it.dismiss()
                         mSnackBar = null
 
-                        showToastMessage("Automatic map refreshing...")
+                        showToastMessage(getString(R.string.toast_automatic_refresh))
 
                         requestLocation()
                     }
@@ -99,7 +101,8 @@ class MapFragment : Fragment() {
         private const val GOOGLE_MAPS_LONGITUDE_NEW_ZOOM = -122.42206407
 
         private const val GOOGLE_MAPS_URI = "http://maps.google.com/maps"
-        private const val URI_GOOGLE_MAPS_WITH_DESTINATION_LAT_LONG = "${GOOGLE_MAPS_URI}?daddr=${GOOGLE_MAPS_LATITUDE},${GOOGLE_MAPS_LONGITUDE}"
+        private const val URI_GOOGLE_MAPS_WITH_DESTINATION_LAT_LONG =
+            "${GOOGLE_MAPS_URI}?daddr=${GOOGLE_MAPS_LATITUDE},${GOOGLE_MAPS_LONGITUDE}"
 
         private const val UPDATE_INTERNAL_IN_MILLISECONDS: Long = 10000
         private const val FASTEST_UPDATE_INTERNAL_IN_MILLISECONDS: Long = 2000
@@ -122,31 +125,28 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_map, container, false)
 
         val application = requireNotNull(this.activity).application
 
 //        mViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
         mViewModel = getMapViewModel(application)
 
-        // Do not request for location coordinates since it would be available after configuration changes.
+        // Do not request for location coordinates since it would be available after configuration
+        // changes.
         if (mViewModel.isFirstRun)
             requestLocation()
         mViewModel.isFirstRun = false
 
-        binding = DataBindingUtil.inflate<FragmentMapBinding>(inflater, R.layout.fragment_map, container, false)
+        binding = DataBindingUtil.inflate<FragmentMapBinding>(
+            inflater, R.layout.fragment_map, container, false
+        )
 
         mViewModel.currentLocationLiveData.observe(viewLifecycleOwner, Observer {
-            showToastMessage("Inside currentLocationLiveData observer.") // TODO: Remove this line later.
-
             // Stop disable progress bar.
             dismissSnackBar()
 
             if (it != null){
                 mIMapFragmentCallbacks.onCurrentLocationReady(it)
-
-                showToastMessage("currentLocationLiveData != null") // TODO: Remove this line later.
 
                 val latitudeNewZoom = it.latitude + (-0.00394422)
                 val longitudeNewZoom = it.longitude + 0.00028557
@@ -161,13 +161,13 @@ class MapFragment : Fragment() {
                 binding.map.visibility = View.VISIBLE
 
                 if (!hasInternetConnection(application)){
-                    mViewModel.emitNoInternetConnectionError(MapViewModel.ERROR_CODE_NO_INTERNET_CONNECTION)
+                    mViewModel.emitNoInternetConnectionError(
+                        MapViewModel.ERROR_CODE_NO_INTERNET_CONNECTION
+                    )
                 }
 
             }else{
-                showToastMessage("currentLocationLiveData == null") // TODO: Remove this line later.
-
-                showToastMessage("App closing.")
+                showToastMessage(getString(R.string.toast_app_closing))
 
                 requireActivity().finish()
             }
@@ -191,29 +191,14 @@ class MapFragment : Fragment() {
         mViewModel.currentLocationResultsError.observe(viewLifecycleOwner, Observer {
             if (it != null && it == MapViewModel.ERROR_CODE_NO_CURRENT_LOCATION) {
 
-                showToastMessage("Error LiveData....") // TODO: Remove this...
-
-/*
-//                mSnackBar = ErrorUtil.showError(
-//                    binding.map,
-//                    R.string.error_location_permission_denied,
-//                    R.string.enable,
-//                    View.OnClickListener {
-//                        // Launches detail settings screen to let the user enable the permission that was denied.
-//                        val intent = Intent()
-//                        intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-//                        intent.data = Uri.fromParts(PACKAGE, requireActivity().packageName, null)
-//                        requireActivity().startActivity(intent)
-//                        //requireActivity().finish()
-//                    })
-*/
-
                 mSnackBar = ErrorUtil.showError(
                     binding.map,
                     R.string.message_location_not_saved,
                     R.string.launch,
                     View.OnClickListener {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(URI_GOOGLE_MAPS_WITH_DESTINATION_LAT_LONG))
+                        val intent = Intent(
+                            Intent.ACTION_VIEW, Uri.parse(URI_GOOGLE_MAPS_WITH_DESTINATION_LAT_LONG)
+                        )
                         intent.resolveActivity(requireActivity().packageManager)?.let {
                             requireActivity().startActivity(intent)
                         }
@@ -229,15 +214,6 @@ class MapFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-/*
-//        initMapFragment(
-//            latitude = GOOGLE_MAPS_LATITUDE,
-//            longitude = GOOGLE_MAPS_LONGITUDE,
-//            latitudeNewZoom = GOOGLE_MAPS_LATITUDE_NEW_ZOOM,
-//            longitudeNewZoom = GOOGLE_MAPS_LONGITUDE_NEW_ZOOM
-//        )
-*/
 
         setSystemBarColor(requireActivity(), R.color.colorPrimary)
     }
@@ -260,19 +236,19 @@ class MapFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        if (isLocationPermissionProcessStarted && (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED))
+        if (isLocationPermissionProcessStarted && isPermissionNotGranted()) // May use !isPermissionGranted()
             showEnableLocationDialog()
 
-        if (isLocationPermissionProcessStarted && (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)){
+        if (isLocationPermissionProcessStarted && isPermissionGranted()){
             requestLocation()
 
             isLocationPermissionProcessStarted = false
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        showToastMessage("onRequestPermissionsResult() called.") // TODO: Remove this line later.
-
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             PERMISSION_LOCATION_REQUEST_CODE -> {
@@ -280,15 +256,12 @@ class MapFragment : Fragment() {
                 isLocationPermissionProcessStarted = true
 
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
-                    showToastMessage("Permission not granted") // TODO: Remove this line later.
 
-                    // permission denied by user.
+                    // Permission denied by user.
                     dismissSnackBar()
 
                     showEnableLocationDialog()
                 } else {
-                    showToastMessage("Permission granted") // TODO: Remove this line later.
-
                     // Permission granted.
                     isLocationPermissionProcessStarted = false
                     dismissSnackBar()
@@ -318,15 +291,11 @@ class MapFragment : Fragment() {
         val settingsClient: SettingsClient = LocationServices.getSettingsClient(requireActivity())
         settingsClient.checkLocationSettings(locationSettingsRequest)
 
-        showToastMessage("requestLocation() called - start.") // TODO: Remove this line later.
-
         mLocationCallback = object : LocationCallback(){
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
 
                 mCurrentLocation = locationResult.lastLocation
-
-                showToastMessage("2. ${locationResult.lastLocation.latitude} + ${locationResult.lastLocation.longitude}") // TODO: Remove this line later.
             }
         }
 
@@ -350,25 +319,21 @@ class MapFragment : Fragment() {
             // for ActivityCompat#requestPermissions for more details.
             */
 
-            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION), PERMISSION_LOCATION_REQUEST_CODE)
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ),
+                PERMISSION_LOCATION_REQUEST_CODE
+            )
 
             return
         }
         fusedLocationClient.lastLocation.addOnSuccessListener {
-//            it?.let {
-//                mCurrentLocation = it
-//                mViewModel.refreshCurrentLocation(mCurrentLocation)
-//                showToastMessage("3. ${it.latitude} + ${it.longitude}") // TODO: Remove this line later.
-//            }
-
             mCurrentLocation = it
 
             mViewModel.refreshCurrentLocation(mCurrentLocation)
-
-            showToastMessage("3. ${it?.latitude} + ${it?.longitude}") // TODO: Remove this line later.
         }
-
-        showToastMessage("requestLocation() called - end.") // TODO: Remove this line later.
 
 /*
 //        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -408,9 +373,12 @@ class MapFragment : Fragment() {
         mLocationPermissionDialog?.show()
     }
 
-    private fun initMapFragment(latitude: Double, longitude: Double, latitudeNewZoom: Double, longitudeNewZoom: Double){
+    private fun initMapFragment(
+        latitude: Double, longitude: Double, latitudeNewZoom: Double, longitudeNewZoom: Double
+    ){
 //        val supportMapFragment: SupportMapFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        val supportMapFragment: SupportMapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val supportMapFragment: SupportMapFragment =
+            childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         supportMapFragment.getMapAsync(object : OnMapReadyCallback{
             override fun onMapReady(googleMap: GoogleMap) {
                 googleMap?.let {
@@ -431,7 +399,8 @@ class MapFragment : Fragment() {
 
                 mGoogleMap = googleMap
 
-                val markerOptions: MarkerOptions = MarkerOptions().position(LatLng(latitude, longitude))
+                val markerOptions: MarkerOptions =
+                    MarkerOptions().position(LatLng(latitude, longitude))
 
                 mGoogleMap?.let { map ->
                     map.addMarker(markerOptions)
@@ -458,33 +427,34 @@ class MapFragment : Fragment() {
     }
 
     private fun zoomingLocation(latitudeNewZoom: Double, longitudeNewZoom: Double): CameraUpdate {
-        return CameraUpdateFactory.newLatLngZoom(LatLng(latitudeNewZoom, longitudeNewZoom), GOOGLE_MAPS_ZOOM)
+        return CameraUpdateFactory.newLatLngZoom(
+            LatLng(latitudeNewZoom, longitudeNewZoom), GOOGLE_MAPS_ZOOM
+        )
     }
 
     private fun getLocationAndHandlePermission(){
-//        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-//            showToastMessage("Permission handling...") // TODO: Remove this line later.
-//
-//            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_LOCATION_REQUEST_CODE)
-//            return
-//        }
-
         if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            showToastMessage("Permission handling...") // TODO: Remove this line later.
-
             requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), PERMISSION_LOCATION_REQUEST_CODE)
+
             return
         }
-
-        showToastMessage("Permission already handled.") // TODO: Remove this line later.
 
         locationProviderClient.lastLocation.addOnSuccessListener {
             mCurrentLocation = it
 
             mViewModel.refreshCurrentLocation(mCurrentLocation)
-
-            showToastMessage("1. ${it?.latitude} + ${it?.longitude}") // TODO: Remove this line later.
         }
+    }
+
+    private fun isPermissionGranted(): Boolean {
+        if ((ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED))
+            return true
+
+        return false
+    }
+
+    private fun isPermissionNotGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
     }
 
     /**

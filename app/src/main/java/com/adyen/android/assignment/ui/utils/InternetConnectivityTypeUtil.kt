@@ -41,7 +41,8 @@ object InternetConnectivityTypeUtil {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             val activeNetwork = connectivityManager.activeNetwork ?: return TYPE_NOT_CONNECTED
-            val capabilities = connectivityManager.getNetworkCapabilities(activeNetwork) ?: return TYPE_NOT_CONNECTED
+            val capabilities =
+                connectivityManager.getNetworkCapabilities(activeNetwork) ?: return TYPE_NOT_CONNECTED
 
             return when {
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> TYPE_WIFI

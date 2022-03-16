@@ -54,7 +54,9 @@ open class EventDataImpl<out T>(private val content: T) : EventData<T> {
      * @property onEventUnhandledContent is *only* called if the [EventDataImpl]'s [content] has
      *     not been handled.
      */
-    class EventDataImplObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<EventDataImpl<T>> {
+    class EventDataImplObserver<T>(
+        private val onEventUnhandledContent: (T) -> Unit
+    ) : Observer<EventDataImpl<T>> {
 
         override fun onChanged(event: EventDataImpl<T>?) {
             event?.getContentIfNotHandled()?.let {

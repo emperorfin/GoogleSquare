@@ -28,53 +28,87 @@ class VenueUiModelMapper {
 
         fun verifyDomainModelVenueExtras(venueExtras: Map<String, Any>): Map<String, Any> {
             if (venueExtras.size < VENUE_EXTRAS_MAP_SIZE_DOMAIN_MODEL)
-                throw IllegalArgumentException("$venueExtras size (${venueExtras.size}) must not be less than $VENUE_EXTRAS_MAP_SIZE_DOMAIN_MODEL.")
+                throw IllegalArgumentException(
+                    "$venueExtras size (${venueExtras.size}) must not be less than " +
+                            "$VENUE_EXTRAS_MAP_SIZE_DOMAIN_MODEL."
+                )
 
             if (!venueExtras.containsKey(VENUE_EXTRAS_KEY_DISTANCE))
-                throw IllegalArgumentException("$venueExtras Map must contain key: \"$VENUE_EXTRAS_KEY_DISTANCE\".")
+                throw IllegalArgumentException(
+                    "$venueExtras Map must contain key: \"$VENUE_EXTRAS_KEY_DISTANCE\"."
+                )
 
             if (venueExtras.get(VENUE_EXTRAS_KEY_DISTANCE) !is String)
-                throw IllegalArgumentException("$venueExtras Map value with the key \"$VENUE_EXTRAS_KEY_DISTANCE\" must be of type String.")
+                throw IllegalArgumentException(
+                    "$venueExtras Map value with the key \"$VENUE_EXTRAS_KEY_DISTANCE\" must be of " +
+                            "type String."
+                )
 
             if (!venueExtras.containsKey(VENUE_EXTRAS_KEY_LATITUDE))
-                throw IllegalArgumentException("$venueExtras Map must contain key: \"$VENUE_EXTRAS_KEY_LATITUDE\".")
+                throw IllegalArgumentException(
+                    "$venueExtras Map must contain key: \"$VENUE_EXTRAS_KEY_LATITUDE\"."
+                )
 
             if (venueExtras.get(VENUE_EXTRAS_KEY_LATITUDE) !is String)
-                throw IllegalArgumentException("$venueExtras Map value with the key \"$VENUE_EXTRAS_KEY_LATITUDE\" must be of type String.")
+                throw IllegalArgumentException(
+                    "$venueExtras Map value with the key \"$VENUE_EXTRAS_KEY_LATITUDE\" must be of " +
+                            "type String."
+                )
 
             if (!venueExtras.containsKey(VENUE_EXTRAS_KEY_LONGITUDE))
-                throw IllegalArgumentException("$venueExtras Map must contain key: \"$VENUE_EXTRAS_KEY_LONGITUDE\".")
+                throw IllegalArgumentException(
+                    "$venueExtras Map must contain key: \"$VENUE_EXTRAS_KEY_LONGITUDE\"."
+                )
 
             if (venueExtras.get(VENUE_EXTRAS_KEY_LONGITUDE) !is String)
-                throw IllegalArgumentException("$venueExtras Map value with the key \"$VENUE_EXTRAS_KEY_LONGITUDE\" must be of type String.")
+                throw IllegalArgumentException(
+                    "$venueExtras Map value with the key \"$VENUE_EXTRAS_KEY_LONGITUDE\" must be of " +
+                            "type String."
+                )
 
             return venueExtras
         }
 
         fun verifyVenueSampleData(vararg venueSampleData: Any): Array<out Any> {
             if (venueSampleData.size < VAR_ARG_SIZE)
-                throw IllegalArgumentException("$venueSampleData size must not be less than $VAR_ARG_SIZE")
+                throw IllegalArgumentException(
+                    "$venueSampleData size must not be less than $VAR_ARG_SIZE"
+                )
 
             if (venueSampleData[VAR_ARG_INDEX_0] !is String)
-                throw IllegalArgumentException("Element at index $VAR_ARG_INDEX_0 in $venueSampleData must be of type String.")
+                throw IllegalArgumentException(
+                    "Element at index $VAR_ARG_INDEX_0 in $venueSampleData must be of type String."
+                )
 
             if (venueSampleData[VAR_ARG_INDEX_1] !is String)
-                throw IllegalArgumentException("Element at index $VAR_ARG_INDEX_1 in $venueSampleData must be of type String.")
+                throw IllegalArgumentException(
+                    "Element at index $VAR_ARG_INDEX_1 in $venueSampleData must be of type String."
+                )
 
             if (venueSampleData[VAR_ARG_INDEX_2] !is String)
-                throw IllegalArgumentException("Element at index $VAR_ARG_INDEX_2 in $venueSampleData must be of type String.")
+                throw IllegalArgumentException(
+                    "Element at index $VAR_ARG_INDEX_2 in $venueSampleData must be of type String."
+                )
 
             if (venueSampleData[VAR_ARG_INDEX_3] !is String)
-                throw IllegalArgumentException("Element at index $VAR_ARG_INDEX_3 in $venueSampleData must be of type String.")
+                throw IllegalArgumentException(
+                    "Element at index $VAR_ARG_INDEX_3 in $venueSampleData must be of type String."
+                )
 
             if (venueSampleData[VAR_ARG_INDEX_4] !is String)
-                throw IllegalArgumentException("Element at index $VAR_ARG_INDEX_4 in $venueSampleData must be of type String.")
+                throw IllegalArgumentException(
+                    "Element at index $VAR_ARG_INDEX_4 in $venueSampleData must be of type String."
+                )
 
             if (venueSampleData[VAR_ARG_INDEX_5] !is String)
-                throw IllegalArgumentException("Element at index $VAR_ARG_INDEX_5 in $venueSampleData must be of type String.")
+                throw IllegalArgumentException(
+                    "Element at index $VAR_ARG_INDEX_5 in $venueSampleData must be of type String."
+                )
 
             if (venueSampleData[VAR_ARG_INDEX_6] !is String)
-                throw IllegalArgumentException("Element at index $VAR_ARG_INDEX_6 in $venueSampleData must be of type String.")
+                throw IllegalArgumentException(
+                    "Element at index $VAR_ARG_INDEX_6 in $venueSampleData must be of type String."
+                )
 
             return venueSampleData
         }

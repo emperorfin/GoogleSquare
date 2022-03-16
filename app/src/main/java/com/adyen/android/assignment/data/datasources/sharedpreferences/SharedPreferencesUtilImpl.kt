@@ -16,7 +16,9 @@ class SharedPreferencesUtilImpl(val context: Context) : SharedPreferencesUtil {
 
     companion object {
 
-        private var PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN = SharedPreferencesUtilImpl::class.qualifiedName + ".PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN"
+        private var PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN =
+            SharedPreferencesUtilImpl::class.qualifiedName +
+                    ".PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN"
 
         private const val DESIRED_SHARED_PREFERENCES_FILE = "shared"
 
@@ -25,7 +27,8 @@ class SharedPreferencesUtilImpl(val context: Context) : SharedPreferencesUtil {
     private lateinit var sharedPreferences: SharedPreferences
 
     init {
-        sharedPreferences = context.getSharedPreferences(DESIRED_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE)
+        sharedPreferences =
+            context.getSharedPreferences(DESIRED_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE)
     }
 
     override fun setVenueOverviewScreenFirstRun(value: Boolean) {
@@ -35,8 +38,7 @@ class SharedPreferencesUtilImpl(val context: Context) : SharedPreferencesUtil {
 //        editor.apply()
     }
 
-    override fun getVenueOverviewScreenFirstRun(): Boolean {
-        return sharedPreferences.getBoolean(PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN, true);
-    }
+    override fun getVenueOverviewScreenFirstRun(): Boolean =
+        sharedPreferences.getBoolean(PREF_KEY_IS_VENUE_OVERVIEW_SCREEN_FIRST_RUN, true)
 
 }

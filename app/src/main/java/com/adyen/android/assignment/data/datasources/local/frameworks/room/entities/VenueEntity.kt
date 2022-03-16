@@ -75,7 +75,8 @@ data class VenueEntity(
         }
 
         fun newInstance(vararg venueSampleData: Any): VenueEntity {
-            val verifiedVenueSampleData: Array<out Any> = VenueEntityMapper.verifyVenueSampleData(venueSampleData)
+            val verifiedVenueSampleData: Array<out Any> =
+                VenueEntityMapper.verifyVenueSampleData(venueSampleData)
 
             val venueSampleDataName = verifiedVenueSampleData[VAR_ARG_INDEX_0] as String
             val venueSampleDataCategory = verifiedVenueSampleData[VAR_ARG_INDEX_1] as String
@@ -96,8 +97,15 @@ data class VenueEntity(
             )
         }
 
-        fun newInstance(name: String, category: String, iconPrefix: String, iconSuffix: String,
-                        distance: Int, latitude: Double, longitude: Double): VenueEntity {
+        fun newInstance(
+            name: String,
+            category: String,
+            iconPrefix: String,
+            iconSuffix: String,
+            distance: Int,
+            latitude: Double,
+            longitude: Double
+        ): VenueEntity {
 
             return VenueEntity(
                 name = name,

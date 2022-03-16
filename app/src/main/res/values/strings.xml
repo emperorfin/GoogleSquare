@@ -22,4 +22,22 @@
     <string name="message_no_internet_connection">No internet connection.</string>
     <string name="message_try_again">Try again</string>
     <string name="message_refresh">Refresh</string>
+    <string name="error_deleting_all_venues">Error deleting all venues.</string>
+    <string name="error_all_venues_not_saved">All the venues were not saved.</string>
+    <string name="error_cant_save_empty_list">An empty list cannot be saved.</string>
+    <string name="error_not_yet_implemented">Not yet implemented.</string>
+    <string name="error_venues_unavailable">List of venues not available.</string>
+    <string name="error_inappropriate_argument_passed">The argument passed is inappropriate.</string>
+    <string name="error_venue_data_unavailable">No venue data available.</string>
+    <string name="error_lat_long_mustnt_be_null">The latitude and longitude must not be null.</string>
+    <string name="error_unsuccesful_venues_request">\"Unsuccessful request for venues: \"</string>
+    <string name="error_remote_data_source_unavailable">Can\'t force refresh: remote data source is unavailable.</string>
+    <string name="error_either_width_or_height_must_not_be_null">Either icon\'s width or height cannot be null. It\'s either both the width and height are null or both aren\'t.</string>
+    <string name="toast_internet_off">Internet connectivity turned off.</string>
+    <string name="toast_internet_on">Internet connectivity turned on.</string>
+    <string name="toast_automatic_refresh">Automatic map refresh...</string>
+    <string name="toast_app_closing">App closing...</string>
+    <string name="message_no_internet_loading_cached_data">No internet connection. Loading saved venues...</string>
+    <string name="error_oops_can_only_visit_nearby_location_when_location_is_available">Oops! This shouldn\'t happen. This means you can visit the nearby venues when your current location is available.</string>
+    <string name="error_can_only_visit_nearby_location_when_location_is_available">You can visit the nearby venues when your current location is available.</string>
 </resources>

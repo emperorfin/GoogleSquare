@@ -48,7 +48,8 @@ data class VenueUiModel(
         const val ICON_BACKGROUND = "bg_"
 
         fun newInstance(domainModelVenue: VenueModel, venueExtras: Map<String, Any>): VenueUiModel {
-            val verifiedVenueExtras: Map<String, Any> = VenueUiModelMapper.verifyDomainModelVenueExtras(venueExtras)
+            val verifiedVenueExtras: Map<String, Any> =
+                VenueUiModelMapper.verifyDomainModelVenueExtras(venueExtras)
 
             val distance: String = verifiedVenueExtras.get(VENUE_EXTRAS_KEY_DISTANCE) as String
             val latitude: String = verifiedVenueExtras.get(VENUE_EXTRAS_KEY_LATITUDE) as String
@@ -70,7 +71,8 @@ data class VenueUiModel(
         }
 
         fun newInstance(vararg venueSampleData: Any): VenueUiModel {
-            val verifiedVenueSampleData: Array<out Any> = VenueUiModelMapper.verifyVenueSampleData(venueSampleData)
+            val verifiedVenueSampleData: Array<out Any> =
+                VenueUiModelMapper.verifyVenueSampleData(venueSampleData)
 
             val venueSampleDataName = verifiedVenueSampleData[VAR_ARG_INDEX_0] as String
             val venueSampleDataCategory = verifiedVenueSampleData[VAR_ARG_INDEX_1] as String

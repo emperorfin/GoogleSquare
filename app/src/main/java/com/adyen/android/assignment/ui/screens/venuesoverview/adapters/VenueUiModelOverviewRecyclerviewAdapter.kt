@@ -16,8 +16,10 @@ import com.adyen.android.assignment.ui.uimodels.VenueUiModel
  */
 
 
-class VenueUiModelOverviewRecyclerviewAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<VenueUiModel, VenueUiModelOverviewRecyclerviewAdapter.ViewHolder>(VenueUiModelDiffCallback) {
+class VenueUiModelOverviewRecyclerviewAdapter(
+    private val onClickListener: OnClickListener
+    ) : ListAdapter<VenueUiModel,
+        VenueUiModelOverviewRecyclerviewAdapter.ViewHolder>(VenueUiModelDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -29,12 +31,15 @@ class VenueUiModelOverviewRecyclerviewAdapter(private val onClickListener: OnCli
         holder.bind(venue, onClickListener)
     }
 
-    class ViewHolder private constructor(private val binding: ListItemVenueOverviewBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(
+        private val binding: ListItemVenueOverviewBinding
+    ) : RecyclerView.ViewHolder(binding.root){
 
         companion object{
             fun from(parent: ViewGroup): ViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemVenueOverviewBinding.inflate(layoutInflater, parent, false)
+                val binding =
+                    ListItemVenueOverviewBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }

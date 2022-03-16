@@ -51,23 +51,12 @@ class MainActivity : AppCompatActivity(), IMapFragmentCallbacks {
 
         setupLiveDataObservation()
 
-        val navHostFragment: NavHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment: NavHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         mNavController = navHostFragment.navController
 
         binding.lifecycleOwner = this
         binding.viewModel = mViewModel
-//        binding.includedLayout.mapButton.setOnClickListener {
-//            navigateToMapScreen(it)
-//        }
-//        binding.includedLayout.tvMap.setOnClickListener {
-//            navigateToMapScreen(it)
-//        }
-//        binding.includedLayout.listButton.setOnClickListener {
-//            navigateToVenueListScreen(it)
-//        }
-//        binding.includedLayout.tvVenueList.setOnClickListener {
-//            navigateToVenueListScreen(it)
-//        }
 
         setupNavigation()
     }
@@ -80,63 +69,52 @@ class MainActivity : AppCompatActivity(), IMapFragmentCallbacks {
 
     private fun setupNavigation() {
         mViewModel.openMapScreenEvent.observe(this, EventDataImplObserver<View?>{
-//            navigateToMapScreen(null)
-
-//            val view: View? = (it as EventDataImpl<View?>).getContentIfNotHandled()
             val view: View? = it
-
-            showToastMessage("${(view as? TextView)?.text}") // TODO: remove
 
             navigateToMapScreen(view)
         })
 
         mViewModel.openVenuesScreenEvent.observe(this, EventDataImplObserver<View?>{
-//            navigateToVenueListScreen(null)
-
-//            val view: View? = (it as EventDataImpl<View?>).getContentIfNotHandled()
             val view: View? = it
-
-            showToastMessage("${(view as? TextView)?.text}") // TODO: remove
 
             navigateToVenueListScreen(view)
         })
     }
 
     private fun navigateToMapScreen(view: View?){
-        showToastMessage("Map button clicked.")
-
         if (mNavController.currentDestination?.id != R.id.mapFragment) {
-            showToastMessage("${mNavController.currentDestination?.id} --- ${R.id.mapFragment}")
-
-            // Both worked
-//            mNavController.navigateUp()
-//            mNavController.navigate(R.id.mapFragment)
-
-            mNavController.navigate(VenuesOverviewFragmentDirections.actionVenuesOverviewFragmentToMapFragment())
+            mNavController.navigate(
+                VenuesOverviewFragmentDirections.actionVenuesOverviewFragmentToMapFragment()
+            )
         }
     }
 
     private fun navigateToVenueListScreen(view: View?){
-        showToastMessage("List button clicked.")
-
         if (mNavController.currentDestination?.id != R.id.venuesOverviewFragment) {
-            showToastMessage("${mNavController.currentDestination?.id} --- ${R.id.venuesOverviewFragment}")
 
             if (mCurrentLocation != null){
                 val latitude = mCurrentLocation?.latitude!!
                 val longitude = mCurrentLocation?.longitude!!
 
                 if (latitude != null || longitude != null) {
-                    // Both worked
-//                    mNavController.navigateUp()
-//                    mNavController.navigate(R.id.venuesOverviewFragment)
-
-                    mNavController.navigate(MapFragmentDirections.actionMapFragmentToVenuesOverviewFragment(latitude.toString(), longitude.toString()))
+                    mNavController.navigate(
+                        MapFragmentDirections.actionMapFragmentToVenuesOverviewFragment(
+                            latitude.toString(), longitude.toString()
+                        )
+                    )
                 } else {
-                    showToastMessage("Oops! This shouldn't happen. This means you can visit the nearby venues when your current location is available.")
+                    showToastMessage(
+                        getString(
+                            R.string.error_oops_can_only_visit_nearby_location_when_location_is_available
+                        )
+                    )
                 }
             } else {
-                showToastMessage("You can visit the nearby venues when your current location is available.")
+                showToastMessage(
+                    getString(
+                        R.string.error_can_only_visit_nearby_location_when_location_is_available
+                    )
+                )
             }
         }
     }
@@ -145,8 +123,6 @@ class MainActivity : AppCompatActivity(), IMapFragmentCallbacks {
         mViewModel.currentLocationLiveData.observe(this, Observer {
             it?.let {
                 mCurrentLocation = it
-
-                showToastMessage("MainActivity: $it")
 
                 mViewModel.emitCurrentLocationLiveData(null)
             }
@@ -158,7 +134,5 @@ class MainActivity : AppCompatActivity(), IMapFragmentCallbacks {
 
     override fun onCurrentLocationReady(currentLocation: Location) {
         mViewModel.emitCurrentLocationLiveData(currentLocation)
-//        mCurrentLocation = currentLocation
-//        showToastMessage("MainActivity: $currentLocation")
     }
 }

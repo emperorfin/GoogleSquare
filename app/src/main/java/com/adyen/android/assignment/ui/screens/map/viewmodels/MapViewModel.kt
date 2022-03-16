@@ -52,13 +52,6 @@ class MapViewModel(application: Application) : AndroidViewModel(application) {
             return
         }
 
-//        if (hasInternetConnection(applicationContext)){
-////            _currentLocationLiveData.value = currentLocation
-//            _currentLocationLiveData.postValue(currentLocation)
-//        } else {
-//            _noInternetConnectionError.postValue(ERROR_CODE_NO_INTERNET_CONNECTION)
-//        }
-
         _currentLocationLiveData.postValue(currentLocation)
     }
 

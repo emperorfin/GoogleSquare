@@ -57,7 +57,8 @@ class VenuesOverviewRepositoryImpl(
                 }
             }
 
-            val newVenues: DataResultEvent<List<VenueModel>> = fetchVenuesFromRemoteOrLocal(paramsNothing, paramsSomething, forceUpdate)
+            val newVenues: DataResultEvent<List<VenueModel>> =
+                fetchVenuesFromRemoteOrLocal(paramsNothing, paramsSomething, forceUpdate)
 
             // Refresh the cache with the new venues
             (newVenues as? Success)?.let { refreshCache(it.data) }
@@ -72,14 +73,6 @@ class VenuesOverviewRepositoryImpl(
                 }
             }
 
-//            if (newVenues is Error)
-//                return@withContext Error(newVenues.failure)
-//            else if (newVenues is Error && newVenues.failure is ListNotAvailableLocalVenueError)
-//                return@withContext Error(newVenues.failure)
-//            else if (newVenues is Error && newVenues.failure is RemoteVenueError)
-//                return@withContext Error(newVenues.failure)
-
-            //return@withContext Error((newVenues as Error).failure)
             return@withContext newVenues as Error
         }
     }
@@ -112,14 +105,20 @@ class VenuesOverviewRepositoryImpl(
 
         // Don't read from local if it's forced
         if (forceUpdate) {
-            return Error(RemoteGetVenueError(cause = Exception("Can't force refresh: remote data source is unavailable.")))
+            return Error(
+                RemoteGetVenueError(
+                    cause = Exception("Can't force refresh: remote data source is unavailable.")
+                )
+            )
         }
 
         // Local if remote fails
         val localVenues = venueLocalDataSource.getVenues(paramsNothing)
         if (localVenues is Success) return localVenues
 //        return Error((localVenues as Error).failure)
-        return Error(RepositoryGetVenueError(cause = Exception("Error fetching from remote and local.")))
+        return Error(
+            RepositoryGetVenueError(cause = Exception("Error fetching from remote and local."))
+        )
     }
 
     private fun refreshCache(venues: List<VenueModel>) {

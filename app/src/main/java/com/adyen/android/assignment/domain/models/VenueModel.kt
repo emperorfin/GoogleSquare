@@ -103,7 +103,8 @@ data class VenueModel(
         }
 
         fun newInstance(uiModelVenue: VenueUiModel, venueExtras: Map<String, Any>): VenueModel {
-            val verifiedVenueExtras: Map<String, Any> = VenueModelMapper.verifyUiModelVenueExtras(venueExtras)
+            val verifiedVenueExtras: Map<String, Any> =
+                VenueModelMapper.verifyUiModelVenueExtras(venueExtras)
 
             val distance: Int = verifiedVenueExtras.get(VENUE_EXTRAS_KEY_DISTANCE) as Int
             val latitude: Double = verifiedVenueExtras.get(VENUE_EXTRAS_KEY_LATITUDE) as Double
@@ -125,7 +126,8 @@ data class VenueModel(
         }
 
         fun newInstance(vararg venueSampleData: Any): VenueModel {
-            val verifiedVenueSampleData: Array<out Any> = VenueModelMapper.verifyVenueSampleData(venueSampleData)
+            val verifiedVenueSampleData: Array<out Any> =
+                VenueModelMapper.verifyVenueSampleData(venueSampleData)
 
             val venueSampleDataName = verifiedVenueSampleData[VAR_ARG_INDEX_0] as String
             val venueSampleDataCategory = verifiedVenueSampleData[VAR_ARG_INDEX_1] as String
@@ -146,8 +148,15 @@ data class VenueModel(
             )
         }
 
-        fun newInstance(name: String, category: String, iconPrefix: String, iconSuffix: String,
-                        distance: Int, latitude: Double, longitude: Double): VenueModel {
+        fun newInstance(
+            name: String,
+            category: String,
+            iconPrefix: String,
+            iconSuffix: String,
+            distance: Int,
+            latitude: Double,
+            longitude: Double
+        ): VenueModel {
 
             return VenueModel(
                 name = name,

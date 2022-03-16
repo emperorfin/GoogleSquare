@@ -26,10 +26,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     val currentLocationLiveData: LiveData<Location>
         get() = _currentLocationLiveData
 
-//    private val _openMapScreenEvent = MutableLiveData<EventDataImpl<Unit>>()
-//    val openMapScreenEvent: LiveData<EventDataImpl<Unit>>
-//        get() = _openMapScreenEvent
-
     private val _openMapScreenEvent = MutableLiveData<EventDataImpl<View?>>()
     val openMapScreenEvent: LiveData<EventDataImpl<View?>>
         get() = _openMapScreenEvent
@@ -49,10 +45,6 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         return message
     }
 
-//    fun openMapScreen(){
-//        _openMapScreenEvent.postValue(EventDataImpl(Unit))
-//    }
-
     fun openMapScreen(view: View?){
         _openMapScreenEvent.postValue(EventDataImpl(view))
     }
@@ -60,5 +52,4 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
     fun openVenuesScreen(view: View?){
         _openVenuesScreenEvent.postValue(EventDataImpl(view))
     }
-
 }

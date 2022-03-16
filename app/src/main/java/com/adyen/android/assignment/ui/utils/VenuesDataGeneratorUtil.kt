@@ -18,7 +18,8 @@ object VenuesDataGeneratorUtil {
     fun getVenues(): ArrayList<VenueUiModel> = transform()
 
     private fun transform(): ArrayList<VenueUiModel> {
-        val venues: List<VenueEntity> = VenuesDataGeneratorUtil_FromDataLayer.getVenueEntityArrayListSampleData()
+        val venues: List<VenueEntity> =
+            VenuesDataGeneratorUtil_FromDataLayer.getVenueEntityArrayListSampleData()
 
         val venueModelMapper = VenueModelMapper()
         val venueUiModelMapper = VenueUiModelMapper()

@@ -42,7 +42,11 @@ fun setVenueIconUrl(imageView: ImageView, iconUrl: String?, iconWidth: Int?, ico
                         else if(iconWidth == null && iconHeight == null)
                         //Do not set override(..., ...)
                         else if(iconWidth == null || iconHeight == null)
-                            throw IllegalArgumentException("Either icon's width or height cannot be null. It's either both the width and height are null or both aren't.")
+                            throw IllegalArgumentException(
+                                imageView
+                                    .context
+                                    .getString(R.string.error_either_width_or_height_must_not_be_null)
+                            )
                     })
             .into(imageView)
     }
