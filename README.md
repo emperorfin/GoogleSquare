@@ -1,3 +1,14 @@
+# My Results For The Adyen Android Assignment
+The Adyen Android Assignment project now uses FourSquare Web service RESTful API to display nearby
+venues based on the current location of the user on a RecyclerView. It also uses Google Maps API to
+display the current location of the user on a Google Map.
+The app covers all the expected minimal requirements with more extra features (you can see project
+code and Git commits).
+
+App link: https://bit.ly/3i9anA4
+App screencast demo video link: https://bit.ly/3Ia5XmZ
+
+
 # Adyen Android Assignment
 
 This repository contains the coding challenge for candidates applying for an Android role at Adyen.
