@@ -39,8 +39,8 @@ data class VenueModel(
         const val VENUE_EXTRAS_MAP_SIZE_UI_MODEL = 3
 
         private const val NO_CATEGORY_NAME = "NO_CATEGORY_NAME"
-        const val NO_CATEGORY_PREFIX = ""
-        const val NO_CATEGORY_SUFFIX = ""
+        private const val NO_CATEGORY_PREFIX = ""
+        private const val NO_CATEGORY_SUFFIX = ""
 
         fun newInstance(dataTransferObjectVenue: VenueDataTransferObject): VenueModel {
             val name: String = dataTransferObjectVenue.name
@@ -53,14 +53,12 @@ data class VenueModel(
                 NO_CATEGORY_NAME
             }
 
-//            val iconPrefix: String = dataTransferObjectVenue.categories.first().icon.prefix
             val iconPrefix: String = if (categories.isNotEmpty()){
                 categories.first().icon.prefix
             }else{
                 NO_CATEGORY_PREFIX
             }
 
-//            val iconSuffix: String = dataTransferObjectVenue.categories.first().icon.suffix
             val iconSuffix: String = if (categories.isNotEmpty()){
                 categories.first().icon.suffix
             }else{

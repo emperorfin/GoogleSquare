@@ -23,12 +23,8 @@ class SharedPreferencesUtilImpl(val context: Context) : SharedPreferencesUtil {
 
     }
 
-    private lateinit var sharedPreferences: SharedPreferences
-
-    init {
-        sharedPreferences =
-            context.getSharedPreferences(DESIRED_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE)
-    }
+    private var sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(DESIRED_SHARED_PREFERENCES_FILE, Context.MODE_PRIVATE)
 
     override fun setVenueOverviewScreenFirstRun(value: Boolean) {
         val editor: SharedPreferences.Editor = sharedPreferences.edit();

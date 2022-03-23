@@ -24,9 +24,7 @@ import java.util.concurrent.ConcurrentMap
 
 
 class VenuesOverviewRepositoryImpl(
-//    val venueLocalDataSource: VenueLocalDataSourceRoom,
     val venueLocalDataSource: VenueDataSource,
-//    private val venueRemoteDataSource: VenueRemoteDataSourceRetrofit,
     private val venueRemoteDataSource: VenueDataSource,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : VenuesOverviewRepository {
@@ -89,12 +87,12 @@ class VenuesOverviewRepositoryImpl(
         // Remote first
         val remoteVenues = venueRemoteDataSource.getVenues(paramsSomething)
         when (remoteVenues) {
-            //is Error -> return remoteVenues // Timber.w("Remote data source fetch failed")
+            // is Error -> return remoteVenues // Timber.w("Remote data source fetch failed")
             is Success -> {
                 refreshLocalDataSource(remoteVenues.data)
                 return remoteVenues
             }
-//            else -> throw IllegalStateException()
+            // else -> throw IllegalStateException()
         }
 
         // Don't read from local if it's forced

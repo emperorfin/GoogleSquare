@@ -38,13 +38,9 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
-
-//        sourceCompatibility JavaVersion.VERSION_11
-//        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
-//        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = '1.8' // or JavaVersion.VERSION_1_8.toString()
     }
 
     buildFeatures{
@@ -65,16 +61,16 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 
     testImplementation "junit:junit:4.13.2"
-    // Hamcrest ----------------------------------------------------------------------
+    // Hamcrest ------------------------------------------------------------------------------------
     testImplementation "org.hamcrest:hamcrest-all:$version_hamcrest"
-    // AndroidX Test - JVM Testing ---------------------------------------------------
+    // AndroidX Test - JVM Testing -----------------------------------------------------------------
     testImplementation "androidx.test.ext:junit-ktx:$version_androidx_test_ext_kotlin_runner"
     testImplementation "androidx.test:core-ktx:$version_androidx_test_core"
-    // Robolectric ------------------------------------------------------------------
+    // Robolectric ---------------------------------------------------------------------------------
     testImplementation "org.robolectric:robolectric:$version_robolectric"
-    // Architecture Components Core Testing Library ---------------------------------
+    // Architecture Components Core Testing Library ------------------------------------------------
     testImplementation "androidx.arch.core:core-testing:$version_arch_testing"
-    // Kotlinx Coroutines Test ------------------------------------------------------
+    // Kotlinx Coroutines Test ---------------------------------------------------------------------
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
@@ -84,7 +80,7 @@ dependencies {
 //    implementation "androidx.core:core-ktx:1.7.0"
     implementation "androidx.core:core-ktx:1.6.0"
 
-    // Retrofit ------------------------------------------------------------------
+    // Retrofit ------------------------------------------------------------------------------------
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
 
@@ -92,23 +88,19 @@ dependencies {
     // AndroidManifest.xml file.
     implementation "androidx.startup:startup-runtime:1.0.0"
 
-    // Navigation Components ------------------------------------------------------------------------
+    // Navigation Components -----------------------------------------------------------------------
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
 
-    // Google Maps ------------------------------------------------------------------------
-//    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    // Google Maps ---------------------------------------------------------------------------------
     implementation "com.google.android.gms:play-services-maps:$version_play_services_maps"
-//    implementation('com.google.android.libraries.places:places:1.0.0') {
-//        exclude module: 'glide'
-//    }
     implementation "com.google.android.gms:play-services-location:$version_play_services_location"
 
-    // Room ------------------------------------------------------------------------
+    // Room ----------------------------------------------------------------------------------------
     implementation "androidx.room:room-runtime:$version_room"
     implementation "androidx.room:room-ktx:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
 
-    // Glide ------------------------------------------------------------------------
+    // Glide ---------------------------------------------------------------------------------------
     implementation "com.github.bumptech.glide:glide:$version_glide"
 }

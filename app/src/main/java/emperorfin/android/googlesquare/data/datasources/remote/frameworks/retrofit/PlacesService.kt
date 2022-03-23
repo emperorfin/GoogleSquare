@@ -22,17 +22,13 @@ interface PlacesService {
     suspend fun getVenueRecommendations(@QueryMap query: Map<String, String>): Response<ResponseWrapper>
 
     /**
-     * Get venue recommendations.
+     * Get venue recommendations. Used for unit testing.
      *
      * See [the docs](https://developer.foursquare.com/reference/places-nearby)
      */
     @Headers("Authorization: ${BuildConfig.API_KEY}")
     @GET("places/nearby")
     fun getVenueRecommendationsTest(@QueryMap query: Map<String, String>): Call<ResponseWrapper>
-
-//    @Headers("Authorization: ${BuildConfig.API_KEY}")
-//    @GET("places/nearby")
-//    suspend fun getVenueRecommendationList(@QueryMap query: Map<String, String>): Response<List<VenueDataTransferObject>>
 
     companion object  {
         private val retrofit by lazy {

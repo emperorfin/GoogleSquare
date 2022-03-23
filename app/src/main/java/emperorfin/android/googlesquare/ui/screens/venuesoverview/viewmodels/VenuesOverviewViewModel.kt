@@ -39,7 +39,6 @@ import kotlin.properties.Delegates
 
 class VenuesOverviewViewModel(
     application: Application,
-//    private val venuesOverviewRepository: VenuesOverviewRepositoryImpl
     private val venuesOverviewRepository: VenuesOverviewRepository
 ) : AndroidViewModel(application) {
 
@@ -51,7 +50,8 @@ class VenuesOverviewViewModel(
 
     private val applicationContext = getApplication<Application>()
 
-    private lateinit var sharedPreferencesUtil: SharedPreferencesUtilImpl
+    private val sharedPreferencesUtil: SharedPreferencesUtilImpl =
+        SharedPreferencesUtilImpl(applicationContext)
 
     var isFirstRun = true
 
@@ -67,9 +67,8 @@ class VenuesOverviewViewModel(
     val noInternetConnectionError: LiveData<String>
         get() = _noInternetConnectionError
 
+    // DO NOT REMOVE.
     init {
-        sharedPreferencesUtil = SharedPreferencesUtilImpl(applicationContext)
-
         // Option 1 of 4 (SAMPLE DATA)
 //        generateVenuesSampleData()
         // Option 2 of 4 (SAMPLE DATA)

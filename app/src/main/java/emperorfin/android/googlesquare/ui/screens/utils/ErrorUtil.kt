@@ -18,7 +18,8 @@ import emperorfin.android.googlesquare.R
 class ErrorUtil {
     companion object {
         /**
-         * Show error message in a snack bar.  If an action is specified then the click listener will be applied to the retry button.
+         * Show error message in a snack bar.  If an action is specified then the click listener
+         * will be applied to the retry button.
          */
         fun showError(
             view: View,

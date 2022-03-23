@@ -126,7 +126,6 @@ class MapFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-//        mViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
         mViewModel = getMapViewModel(application)
 
         // Do not request for location coordinates since it would be available after configuration

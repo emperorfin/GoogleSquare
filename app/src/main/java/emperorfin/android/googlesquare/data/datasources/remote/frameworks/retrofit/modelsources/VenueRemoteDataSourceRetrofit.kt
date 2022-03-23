@@ -55,16 +55,16 @@ class VenueRemoteDataSourceRetrofit internal constructor(
                     .build()
 
                 val response = PlacesService.instance.getVenueRecommendations(query)
-                lateinit var dataResultEventVenueModelList: DataResultEvent<List<VenueModel>>
+
                 withContext(Dispatchers.Main){
                     if (response.isSuccessful){ // && response.body() != null
                         response.body()?.let {
 
                             it.results?.let {venues ->
-                                val modelVenues: List<VenueModel> = buildVenueModelList(venues)
 
-//                                return@withContext Success(modelVenues)
                                 return@withContext if (venues.isNotEmpty()) {
+                                    val modelVenues: List<VenueModel> = buildVenueModelList(venues)
+
                                     Success(modelVenues)
                                 } else {
                                     Error(ListNotAvailableRemoteVenueError())
@@ -107,9 +107,8 @@ class VenueRemoteDataSourceRetrofit internal constructor(
 
     private fun buildVenueModelList(
         dataTransferObjectVenues: List<VenueDataTransferObject>
-    ): List<VenueModel> {
-        return dataTransferObjectVenues.map {
-            venueModelMapper.transform(it)
-        }
+    ): List<VenueModel> = dataTransferObjectVenues.map {
+        venueModelMapper.transform(it)
     }
+
 }

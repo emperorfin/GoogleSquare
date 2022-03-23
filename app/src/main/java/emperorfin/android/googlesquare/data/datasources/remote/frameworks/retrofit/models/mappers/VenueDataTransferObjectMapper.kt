@@ -7,5 +7,8 @@ package emperorfin.android.googlesquare.data.datasources.remote.frameworks.retro
  */
 
 
+/**
+ * This class should be implemented if data would be transferred from the user to the web service.
+ */
 class VenueDataTransferObjectMapper {
 }

@@ -16,12 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <!--
-             The API key for Google Maps-based APIs.
-        -->
-<!--        <meta-data-->
-<!--            android:name="com.google.android.geo.API_KEY"-->
-<!--            android:value="@string/google_maps_key" />-->
+
         <!--
              The API key for Google Maps-based APIs.
              Note: The Google Maps API Key has been moved to local.properties which is a safer place.
@@ -41,11 +36,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="emperorfin.android.googlesquare.ui.MainActivity" /> <!-- Required to disable automatic Jetpack App Startup -->
+
+        <activity android:name="emperorfin.android.googlesquare.ui.MainActivity" />
+
+        <!-- Required to disable automatic Jetpack App Startup -->
         <provider
             android:name="androidx.startup.InitializationProvider"
             android:authorities="${applicationId}.androidx-startup"
             tools:node="remove" />
+
     </application>
 
 </manifest>

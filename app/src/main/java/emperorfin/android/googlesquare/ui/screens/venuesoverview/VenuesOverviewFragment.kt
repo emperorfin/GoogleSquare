@@ -53,7 +53,6 @@ class VenuesOverviewFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_venues_overview, container, false)
         val binding =
             DataBindingUtil.inflate<FragmentVenuesOverviewBinding>(
                 inflater, R.layout.fragment_venues_overview, container, false
