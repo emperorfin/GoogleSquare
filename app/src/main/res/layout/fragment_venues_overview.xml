@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.adyen.android.assignment.ui.screens.venuesoverview.viewmodels.VenuesOverviewViewModel" />
+            type="emperorfin.android.googlesquare.ui.screens.venuesoverview.viewmodels.VenuesOverviewViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -6,11 +6,11 @@
     <data>
         <variable
             name="venueUiModel"
-            type="com.adyen.android.assignment.ui.uimodels.VenueUiModel" />
+            type="emperorfin.android.googlesquare.ui.uimodels.VenueUiModel" />
         
         <variable
             name="clickListener"
-            type="com.adyen.android.assignment.ui.screens.venuesoverview.adapters.VenueUiModelOverviewRecyclerviewAdapter.OnClickListener" />
+            type="emperorfin.android.googlesquare.ui.screens.venuesoverview.adapters.VenueUiModelOverviewRecyclerviewAdapter.OnClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

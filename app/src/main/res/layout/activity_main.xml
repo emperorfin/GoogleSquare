@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.adyen.android.assignment.ui.screens.viewmodels.MainActivityViewModel" />
+            type="emperorfin.android.googlesquare.ui.screens.viewmodels.MainActivityViewModel" />
     </data>
 
     <RelativeLayout

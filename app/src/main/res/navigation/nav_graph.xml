@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.adyen.android.assignment.ui.screens.map.MapFragment"
+        android:name="emperorfin.android.googlesquare.ui.screens.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" >
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/venuesOverviewFragment"
-        android:name="com.adyen.android.assignment.ui.screens.venuesoverview.VenuesOverviewFragment"
+        android:name="emperorfin.android.googlesquare.ui.screens.venuesoverview.VenuesOverviewFragment"
         android:label="fragment_venues_overview"
         tools:layout="@layout/fragment_venues_overview" >
         <action
