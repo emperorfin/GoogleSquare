@@ -141,15 +141,15 @@ perform any business logic (domain layer use case responsibility).
 
 Checklist of all upcoming [enhancements](https://github.com/emperorfin/GoogleSquare/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc+label%3Aenhancement).
 
-## Getting started
+## Getting Started
+
+### Command-line
+Run git clone https://github.com/emperorfin/GoogleSquare.git command to clone the project.
 
 ### Setup
-Add your Google Maps API key to `local.properties`. See `local.properties.example` for details.
-Add your Foursquare API key to `local.gradle`. See `local.gradle.example` for details. Tip: You can
-verify your credentials with `src/test/java/emperorfin/android/GoogleSquare/PlacesUnitTest.kt`
-
-#### Command-line
-Run git clone https://github.com/emperorfin/GoogleSquare.git command to clone the project
+1. Add your Google Maps API key to `local.properties`. See `local.properties.example` for details.
+2. Add your Foursquare API key to `local.gradle`. See `local.gradle.example` for details. Tip: You
+can verify your credentials with `src/test/java/emperorfin/android/GoogleSquare/PlacesUnitTest.kt`
 
 ## Note
 You may notice some empty packages, unused classes (e.g. sample data generator) and functions. The
