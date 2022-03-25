@@ -1,5 +1,17 @@
+def localPropertiesFile = rootProject.file("local.properties")
+
+def localProperties = new Properties()
+localProperties.load(new FileInputStream(localPropertiesFile))
+
+def googleMapsApiKey = localProperties.getProperty("GOOGLE_MAPS_API_KEY") // or localProperties['GOOGLE_MAPS_API_KEY']
+
 android {
     defaultConfig {
-        buildConfigField "String", "API_KEY", "\"<YOU_API_KEY_GOES_HERE>\""
+        buildConfigField "String", "API_KEY", "\"<YOU_API_KEY_GOES_HERE>\"" // Accessible in app code like this: BuildConfig.API_KEY
+        buildConfigField "String", "API_KEY_GOOGLE_MAPS", googleMapsApiKey // Accessible in app code like this: BuildConfig.API_KEY_GOOGLE_MAPS
+
+        manifestPlaceholders = [apiKeyGoogleMaps:googleMapsApiKey] // Accessible in AndroidManifest.xml like this: ${apiKeyGoogleMaps}
+
+        resValue("string", "google_maps_api_key", googleMapsApiKey) // Accessible like this: @string/google_maps_api_key or R.string.google_maps_api_key
     }
 }
