@@ -30,7 +30,8 @@ displayed whenever the user visits the screen while offline.
 * Navigation Components
 * Proper Navigation Handling
 * Navigation Destinations Back-stack Management
-* Proper Configuration Changes Handling
+* Proper Configuration Changes Handling (screen rotation)
+* Proper Permissions Handling (location)
 * SafeArgs
 * LiveData
 * Offline Storage (via Room)
