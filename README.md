@@ -123,18 +123,11 @@ Components:
 contain annotations, so Retrofit/Moshi knows how to parse this network data (XML, JSON, Binary...)
 into objects.
 - **Entity** - defines the structure of the data retrieved from or saved to the local database.
-- **Repository** - exposes data to the domain layer. Depending on application structure and quality
-of the external APIs repository can also merge, filter, and transform the data. The intention of
-these operations is to create high-quality data source for the domain layer, not to perform any
-business logic (domain layer use case responsibility).
 - **DataTransferObjectMapper** - is used to convert from domain model to data transfer object (to
 keep the Data layer's remote data source independent from other layers and data sources).
 - **EntityMapper** - is used to convert from domain model to entity (to keep the Data layer's local
 data source independent from other layers and data sources).
-- **Repository class** - exposes data to the UI layer. Depending on application structure and
-quality of the external APIs repository can also merge, filter, and transform the data. The
-intention of these operations is to create high-quality data source for the domain layer, not to
-perform any business logic (domain layer use case responsibility).
+- **Repository class** - exposes data to the UI layer.
 - **Retrofit Service** - defines a set of API endpoints.
 
 ## Upcoming Improvements
