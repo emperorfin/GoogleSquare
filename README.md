@@ -83,8 +83,7 @@ Components:
 Views are hard to test, so they should be as simple as possible.
 - **ViewModel** - dispatches (through LiveData) the state changes to the view and deals with user
 interactions (these ViewModels are not simply Plain Old Java Object [POJO] classes.)
-- **UiModel** - defines the structure of the data that will be used within the UI layer. This is the
-source of truth for application data.
+- **UiModel** - defines the structure of the data that will be used within the UI layer.
 - **UiModelMapper** - is used to convert from domain model to UI model (to keep UI layer independent
 from other layers).
 
@@ -116,16 +115,17 @@ This further strengthens decoupling between UI and Data layers and data sources 
 
 #### Data Layer
 
-Manages application data and exposes these data sources as repositories to the UI layer. Typical
-responsibilities of this layer would be to retrieve data from the internet and optionally cache this data locally.
+Manages application data and exposes data sources as repositories to the UI layer. Typical
+responsibilities of this layer would be to retrieve data from the internet and optionally cache this
+data locally.
 
 Components:
-- **DataTransferObjectModel** - defines the structure of the data retrieved from the network and may
-contain annotations, so Retrofit/Moshi knows how to parse this network data (XML, JSON, Binary...)
-into objects.
-- **Entity** - defines the structure of the data retrieved from or saved to the local database.
+- **DataTransferObjectModel** - defines the structure of the data retrieved from the internet and
+may contain annotations, so Retrofit/Moshi knows how to parse this internet
+data (XML, JSON, Binary...) into objects.
 - **DataTransferObjectMapper** - is used to convert from domain model to data transfer object (to
 keep the Data layer's remote data source independent from other layers and data sources).
+- **Entity** - defines the structure of the data retrieved from or saved to the local database.
 - **EntityMapper** - is used to convert from domain model to entity (to keep the Data layer's local
 data source independent from other layers and data sources).
 - **Repository class** - exposes data to the UI layer.
