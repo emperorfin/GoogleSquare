@@ -142,8 +142,8 @@ Run git clone https://github.com/emperorfin/GoogleSquare.git command to clone th
 
 ### Setup
 1. Add your Google Maps API key to `local.properties`. See `local.properties.example` for details.
-2. Add your Foursquare API key to `local.gradle`. See `local.gradle.example` for details. Tip: You
-can verify your credentials with `src/test/java/emperorfin/android/GoogleSquare/PlacesUnitTest.kt`
+2. Add your Foursquare API key to `app/local.gradle`. See `app/local.gradle.example` for details.
+Tip: You can verify your credentials with `src/test/java/emperorfin/android/GoogleSquare/PlacesUnitTest.kt`.
 
 ## Note
 You may notice some empty packages, unused classes (e.g. sample data generator) and functions. The
